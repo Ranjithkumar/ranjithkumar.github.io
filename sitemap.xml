@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://Ranjithkumar.github.io/blog/archives/</loc>
+        <loc>http://ranjithkumar.github.io/blog/archives/</loc>
         <lastmod>2014-04-21T12:31:05+05:30</lastmod>
     </url>
     <url>
-        <loc>http://Ranjithkumar.github.io/blog/categories/</loc>
+        <loc>http://ranjithkumar.github.io/blog/categories/</loc>
         <lastmod>2014-04-21T12:31:05+05:30</lastmod>
     </url>
     <url>
-        <loc>http://Ranjithkumar.github.io/robots.txt</loc>
+        <loc>http://ranjithkumar.github.io/robots.txt</loc>
         <lastmod>2014-04-21T12:14:00+05:30</lastmod>
     </url>
     <url>
-        <loc>http://Ranjithkumar.github.io/</loc>
+        <loc>http://ranjithkumar.github.io/</loc>
         <lastmod>2014-04-21T12:31:05+05:30</lastmod>
     </url>
 </urlset>
