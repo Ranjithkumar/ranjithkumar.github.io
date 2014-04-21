@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://Ranjithkumar.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://ranjithkumar.github.io
+title: Ranjith's Blog
+subtitle: learning has never been this easy...
+author: Ranjithkumar Ravi
 simple_search: https://www.google.com/search
-description:
+description: learning has never been this easy...
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -20,6 +20,7 @@ subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
+email_md5: d968f09778657cdb1d7c0d58939834f8
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -63,13 +64,13 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
-github_repo_count: 0
+github_user: ranjithkumar
+github_repo_count: 5
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: ranjithru
 twitter_tweet_button: true
 
 # Google +1
@@ -97,4 +98,8 @@ disqus_show_comment_count: false
 google_analytics_tracking_id:
 
 # Facebook Like
+facebook_user: Rans.R
 facebook_like: false
+
+stackoverflow_user: ranjithkumar-ravi
+stackoverflow_user_id: 1379514
