@@ -80,10 +80,12 @@ After hosting, we have faced some issues.
   
  
 **3) Other differences:**
-  (i)   Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.
-  (ii)  To select random records from DB, Mysql has a function called "rand()" and PostgreSQL has a function called "random()".
-  (iii) PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.
-  (iv)  In PostgreSQL, attribute name starting with numbers, like "360_degree" are not allowed.
+<ol type='a'>
+  <li>Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.</li>
+  <li>To select random records from DB, Mysql has a function called "rand()" and PostgreSQL has a function called "random()".</li>
+  <li>PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.</li>
+  <li>In PostgreSQL, attribute name starting with numbers, like "360_degree" are not allowed.</li>
+</ol>
   
 Good luck!
 

@@ -21,15 +21,15 @@ The Sidekiq configuration file by default located at _config/sidekiq.yml_. It is
 Here is an example configuration file:
 
 
-<blockquote>---
-:concurrency: 5
-:pidfile: tmp/pids/sidekiq.pid
-staging:
-:concurrency: 10
-production:
-:concurrency: 50
-:queues:
-- default</blockquote>
+
+    :concurrency: 5
+    :pidfile: tmp/pids/sidekiq.pid
+    staging:
+     :concurrency: 10
+    production:
+     :concurrency: 50
+    :queues:
+     - default
 
 
 By default, one Sidekiq process will be started on each app server.
@@ -44,13 +44,13 @@ _SOA + Ruby(2.0) + Rails(4.0) + Unicorn  + Nginx  + SideKiq + MultiTenant_
 In your _config/initializers/sidekiq.rb_ file,
 
 
-<blockquote>Sidekiq.configure_server do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end
+    Sidekiq.configure_server do |config|
+      config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+    end
 
-Sidekiq.configure_client do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end</blockquote>
+    Sidekiq.configure_client do |config|
+      config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+    end
 
 
 Usage:

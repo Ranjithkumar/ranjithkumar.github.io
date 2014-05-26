@@ -15,7 +15,8 @@ tags:
 
 **1) Make fewer HTTP request(Js, CSS & image)**
 Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
-_a) Combined files_ => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js & css
+
+_a) Combined files_ => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js & css.
 In our rails app, we used bundle_fu([https://github.com/timcharper/bundle-fu](https://github.com/timcharper/bundle-fu)). Its used to bundle all your assets very easy. It can speed your load time up around 50%.
 
 Example put the following around your stylesheets/javascripts:
@@ -57,11 +58,14 @@ example for apache(in the server config file):
 
 
 **4) Add expires headers for JS & CSS**
-There are two aspects to this rule:
-_a) For static components :_ implement "Never expire" policy by setting far future Expires header
-_b) For dynamic components:_ use an appropriate Cache-Control header to help the browser with conditional requests
 
-This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: "<img src='/images/rails.png?84392578943' />"). Now your browser will know to ask for the file again. The "timestamp" is the default behavior of rails.
+There are two aspects to this rule:
+<ol type='a'>
+<li> For static components: implement "Never expire" policy by setting far future Expires header</li>
+<li> For dynamic components: use an appropriate Cache-Control header to help the browser with conditional requests</li>
+</ol>
+
+This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: "&lt;img src='/images/rails.png?84392578943' /&gt;"). Now your browser will know to ask for the file again. The "timestamp" is the default behavior of rails.
 
 **5) Put CSS at top**
 Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.
