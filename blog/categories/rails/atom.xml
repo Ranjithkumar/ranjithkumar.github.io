@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-05-26T17:55:55+05:30</updated>
+  <updated>2014-05-26T18:55:52+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -65,16 +65,15 @@
     <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
 Here is an example configuration file:</p>
 
-<blockquote>---
-:concurrency: 5
+<pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
 staging:
-:concurrency: 10
+ :concurrency: 10
 production:
-:concurrency: 50
+ :concurrency: 50
 :queues:
-- default</blockquote>
-
+ - default
+</code></pre>
 
 <p>By default, one Sidekiq process will be started on each app server.</p>
 
@@ -87,14 +86,14 @@ production:
 
 <p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
 
-<blockquote>Sidekiq.configure_server do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+<pre><code>Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
 end
 
 Sidekiq.configure_client do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end</blockquote>
-
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+end
+</code></pre>
 
 <p>Usage:
 <em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>
@@ -112,8 +111,9 @@ end</blockquote>
     <updated>2011-02-15T11:01:44+05:30</updated>
     <id>http://ranjithkumar.github.io/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time</id>
     <content type="html"><![CDATA[<p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
-Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
-<em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css
+Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.</p>
+
+<p><em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css.
 In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
 
 <p>Example put the following around your stylesheets/javascripts:</p>
@@ -149,12 +149,17 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 Header append Vary User-Agent
 </code></pre>
 
-<p><strong>4) Add expires headers for JS &amp; CSS</strong>
-There are two aspects to this rule:
-<em>a) For static components :</em> implement &ldquo;Never expire&rdquo; policy by setting far future Expires header
-<em>b) For dynamic components:</em> use an appropriate Cache-Control header to help the browser with conditional requests</p>
+<p><strong>4) Add expires headers for JS &amp; CSS</strong></p>
 
-<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;<img src='http://ranjithkumar.github.io/images/rails.png?84392578943' />&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
+<p>There are two aspects to this rule:</p>
+
+<ol type='a'>
+<li> For static components: implement "Never expire" policy by setting far future Expires header</li>
+<li> For dynamic components: use an appropriate Cache-Control header to help the browser with conditional requests</li>
+</ol>
+
+
+<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;&lt;img src=&lsquo;<a href="http://ranjithkumar.github.io/images/rails.png?84392578943">http://ranjithkumar.github.io/images/rails.png?84392578943</a>&rsquo; /&gt;&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
 
 <p><strong>5) Put CSS at top</strong>
 Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.</p>

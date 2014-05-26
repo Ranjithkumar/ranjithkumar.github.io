@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-05-26T17:55:55+05:30</updated>
+  <updated>2014-05-26T18:55:52+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -21,16 +21,15 @@
     <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
 Here is an example configuration file:</p>
 
-<blockquote>---
-:concurrency: 5
+<pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
 staging:
-:concurrency: 10
+ :concurrency: 10
 production:
-:concurrency: 50
+ :concurrency: 50
 :queues:
-- default</blockquote>
-
+ - default
+</code></pre>
 
 <p>By default, one Sidekiq process will be started on each app server.</p>
 
@@ -43,14 +42,14 @@ production:
 
 <p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
 
-<blockquote>Sidekiq.configure_server do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+<pre><code>Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
 end
 
 Sidekiq.configure_client do |config|
-config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end</blockquote>
-
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+end
+</code></pre>
 
 <p>Usage:
 <em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>

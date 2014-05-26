@@ -195,16 +195,15 @@
 		<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
 Here is an example configuration file:</p>
 
-<blockquote>&#8212;
-:concurrency: 5
+<pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
 staging:
-:concurrency: 10
+ :concurrency: 10
 production:
-:concurrency: 50
+ :concurrency: 50
 :queues:
-- default</blockquote>
-
+ - default
+</code></pre>
 
 <p>By default, one Sidekiq process will be started on each app server.</p>
 
@@ -217,14 +216,14 @@ production:
 
 <p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
 
-<blockquote>Sidekiq.configure_server do |config|
-config.redis = { url: &#8216;redis://localhost:6379/0&#8217;, namespace: &#8220;sidekiq_app_name_#{Rails.env}&#8221; }
+<pre><code>Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
 end
 
 Sidekiq.configure_client do |config|
-config.redis = { url: &#8216;redis://localhost:6379/0&#8217;, namespace: &#8220;sidekiq_app_name_#{Rails.env}&#8221; }
-end</blockquote>
-
+  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
+end
+</code></pre>
 
 <p>Usage:
 <em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>
@@ -478,11 +477,15 @@ After hosting, we have faced some issues.</p>
 MySQL and PostgreSQL.
 </code></pre>
 
-<p><strong>3) Other differences:</strong>
-  (i)   Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.
-  (ii)  To select random records from DB, Mysql has a function called &ldquo;rand()&rdquo; and PostgreSQL has a function called &ldquo;random()&rdquo;.
-  (iii) PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.
-  (iv)  In PostgreSQL, attribute name starting with numbers, like &ldquo;360_degree&rdquo; are not allowed.</p>
+<p><strong>3) Other differences:</strong></p>
+
+<ol type='a'>
+  <li>Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.</li>
+  <li>To select random records from DB, Mysql has a function called &#8220;rand()&#8221; and PostgreSQL has a function called &#8220;random()&#8221;.</li>
+  <li>PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.</li>
+  <li>In PostgreSQL, attribute name starting with numbers, like &#8220;360_degree&#8221; are not allowed.</li>
+</ol>
+
 
 <p>Good luck!</p>
 
@@ -601,8 +604,9 @@ and
 	<h1 class="title" itemprop="name"><a href="/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time/" itemprop="url">Tips for Faster Loading Web sites(Optimizing Page Load Time)</a></h1>
 	<div class="entry-content" itemprop="articleBody">
 		<p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
-Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
-<em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css
+Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.</p>
+
+<p><em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css.
 In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
 
 <p>Example put the following around your stylesheets/javascripts:</p>
@@ -638,12 +642,17 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 Header append Vary User-Agent
 </code></pre>
 
-<p><strong>4) Add expires headers for JS &amp; CSS</strong>
-There are two aspects to this rule:
-<em>a) For static components :</em> implement &ldquo;Never expire&rdquo; policy by setting far future Expires header
-<em>b) For dynamic components:</em> use an appropriate Cache-Control header to help the browser with conditional requests</p>
+<p><strong>4) Add expires headers for JS &amp; CSS</strong></p>
 
-<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;<img src='/images/rails.png?84392578943' />&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
+<p>There are two aspects to this rule:</p>
+
+<ol type='a'>
+<li> For static components: implement &#8220;Never expire&#8221; policy by setting far future Expires header</li>
+<li> For dynamic components: use an appropriate Cache-Control header to help the browser with conditional requests</li>
+</ol>
+
+
+<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;&lt;img src=&lsquo;/images/rails.png?84392578943&rsquo; /&gt;&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
 
 <p><strong>5) Put CSS at top</strong>
 Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.</p>

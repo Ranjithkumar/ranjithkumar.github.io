@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Database | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-05-26T17:55:55+05:30</updated>
+  <updated>2014-05-26T18:55:52+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -203,11 +203,15 @@ After hosting, we have faced some issues.</p>
 MySQL and PostgreSQL.
 </code></pre>
 
-<p><strong>3) Other differences:</strong>
-  (i)   Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.
-  (ii)  To select random records from DB, Mysql has a function called &ldquo;rand()&rdquo; and PostgreSQL has a function called &ldquo;random()&rdquo;.
-  (iii) PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.
-  (iv)  In PostgreSQL, attribute name starting with numbers, like &ldquo;360_degree&rdquo; are not allowed.</p>
+<p><strong>3) Other differences:</strong></p>
+
+<ol type='a'>
+  <li>Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.</li>
+  <li>To select random records from DB, Mysql has a function called "rand()" and PostgreSQL has a function called "random()".</li>
+  <li>PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.</li>
+  <li>In PostgreSQL, attribute name starting with numbers, like "360_degree" are not allowed.</li>
+</ol>
+
 
 <p>Good luck!</p>
 ]]></content>

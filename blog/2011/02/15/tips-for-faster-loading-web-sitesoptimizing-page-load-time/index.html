@@ -96,8 +96,9 @@ Most of the end-user response time is &hellip;">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Tips for Faster Loading Web sites(Optimizing Page Load Time)</h1>
 	<div class="entry-content" itemprop="articleBody"><p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
-Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
-<em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css
+Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.</p>
+
+<p><em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css.
 In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
 
 <p>Example put the following around your stylesheets/javascripts:</p>
@@ -133,12 +134,17 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 Header append Vary User-Agent
 </code></pre>
 
-<p><strong>4) Add expires headers for JS &amp; CSS</strong>
-There are two aspects to this rule:
-<em>a) For static components :</em> implement &ldquo;Never expire&rdquo; policy by setting far future Expires header
-<em>b) For dynamic components:</em> use an appropriate Cache-Control header to help the browser with conditional requests</p>
+<p><strong>4) Add expires headers for JS &amp; CSS</strong></p>
 
-<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;<img src='/images/rails.png?84392578943' />&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
+<p>There are two aspects to this rule:</p>
+
+<ol type='a'>
+<li> For static components: implement &#8220;Never expire&#8221; policy by setting far future Expires header</li>
+<li> For dynamic components: use an appropriate Cache-Control header to help the browser with conditional requests</li>
+</ol>
+
+
+<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;&lt;img src=&lsquo;/images/rails.png?84392578943&rsquo; /&gt;&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
 
 <p><strong>5) Put CSS at top</strong>
 Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.</p>
