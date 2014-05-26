@@ -1,0 +1,207 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Tips for faster loading web sites(Optimizing page load time) - Ranjith's Blog</title>
+	<meta name="author" content="Ranjithkumar Ravi">
+
+	
+	<meta name="description" content="Tips for Faster Loading Web sites(Optimizing Page Load Time) 1) Make fewer HTTP request(Js, CSS &amp; image)
+Most of the end-user response time is &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Ranjith's Blog" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://ranjithkumar.github.io/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<img src="http://www.gravatar.com/avatar/d968f09778657cdb1d7c0d58939834f8?s=160" alt="Profile Picture" style="width: 160px;" />
+	
+</div>
+<h3>Ranjithkumar Ravi</h3>
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+<section class="aboutme">
+  <p>
+    learning has never been this easy...
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+			<a class="facebook" href="http://www.facebook.com/Rans.R" title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href="http://twitter.com/ranjithru" title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href="https://github.com/ranjithkumar" title="GitHub">GitHub</a>
+		
+		
+		
+		  <a class="stackoverflow" href="http://stackoverflow.com/users/1379514/ranjithkumar-ravi" title="StackOverflow"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Tips for Faster Loading Web sites(Optimizing Page Load Time)</h1>
+	<div class="entry-content" itemprop="articleBody"><p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
+Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
+<em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css
+In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
+
+<p>Example put the following around your stylesheets/javascripts:</p>
+
+<pre><code>         -bundle :name =&gt; "default_bundle" do
+           = javascript_include_tag "http://w.sharethis.com/button/buttons.js"
+           = stylesheet_link_tag 'jquery-ui', 'auto_complete/token-input.css'
+           = javascript_include_tag 'jquery-1.4.2.js', 'jquery-ui.js', 'auto_complete/jquery.tokeninput.js', 'auto_complete/setup.js', 'underscore.js', 'date.js', 'cal.js', 'application.js', 'time_picker/jquery.timePicker.js', 'ajax_pagination.js'
+           = stylesheet_link_tag 'compiled/certification.css','compiled/error.css', 'compiled/elements.css', 'compiled/messages.css', 'compiled/calendar.css', 'compiled/common.css', 'time_picker/timePicker.css', :media =&gt; 'screen, projection'
+           = stylesheet_link_tag 'compiled/print.css', :media =&gt; 'print'
+           = javascript_include_tag "markerCluster/jsapi", "markerCluster/map.js", "markerCluster/markerclusterer.js", "jquery-jtemplates"
+</code></pre>
+
+<p><em>b) CSS sprites</em>     => Its used to reducing the number of image requests. Combine your background images into a single image and use the CSS background-image and background-position properties to display the desired image segment.</p>
+
+<p><strong>2) Avoid empty src or href</strong>
+You may expect a browser to do nothing. But most browsers makes a request to server(sending a large amount of unexpected traffic).</p>
+
+<p><strong>3) Compress components with gzip</strong>
+This is used to reduce their file size over the wire by approximately 70%. This can be set up using your Apache(needs Apache 2, mod_deflate, mod_headers and access to server config) or Nginx config.</p>
+
+<p>example for apache(in the server config file):</p>
+
+<pre><code># Compress some text file types
+AddOutputFilterByType DEFLATE text/html text/css text/xml application/x-javascript
+
+# Deactivate compression for buggy browsers
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+# Set header information for proxies
+Header append Vary User-Agent
+</code></pre>
+
+<p><strong>4) Add expires headers for JS &amp; CSS</strong>
+There are two aspects to this rule:
+<em>a) For static components :</em> implement &ldquo;Never expire&rdquo; policy by setting far future Expires header
+<em>b) For dynamic components:</em> use an appropriate Cache-Control header to help the browser with conditional requests</p>
+
+<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;<img src='/images/rails.png?84392578943' />&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
+
+<p><strong>5) Put CSS at top</strong>
+Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.</p>
+
+<p><strong>6) Minify JS &amp; CSS</strong>
+Minification is the practice of removing unnecessary characters from code like comments and unneeded white space characters (space, newline, tab and etc). This improves response time performance &amp; load times. You can use JSMin and YUI Compressor for minifying your JS code. Also some plugins are there, please check it here: <a href="https://github.com/sinefunc/sinatra-minify">https://github.com/sinefunc/sinatra-minify</a> and <a href="https://github.com/ericbarnes/ci-minify">https://github.com/ericbarnes/ci-minify</a>.</p>
+
+<p>please check the screenshot. Right now, as you can see, I have made it Yslow grade from &ldquo;F&rdquo; to &ldquo;B&rdquo; very easily. I am sure, we can easily get grade &ldquo;A&rdquo; too&hellip; We need some support from the server side regarding &ldquo;Add expires header&rdquo; and &ldquo;Use Cookie-free Domains for Components&rdquo;. I have requested engineyard(hosting server) for the same. Waiting for the reply from them. By next week, it will turn into grade &ldquo;A&rdquo;.</p>
+
+<p>and also found one good link from rubyquicktips. Benchmark.ms is very nice. its used to track how long some bit of code takes to process. please check it here: <a href="http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil">http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil</a></p>
+
+<p>Before optimization:
+<a href="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png?w=300" alt="" /></a></p>
+
+<p>After optimization:
+<a href="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png?w=300" alt="" /></a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Ranjithkumar Ravi
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

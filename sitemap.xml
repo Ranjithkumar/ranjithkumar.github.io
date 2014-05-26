@@ -1,8 +1,56 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2010/02/07/thinking-sphinx-with-multiple-instance/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://ranjithkumar.github.io/blog/2010/03/07/ordinalize-in-rails/</loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://ranjithkumar.github.io/blog/2010/03/07/cycle-helper-in-rails/</loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://ranjithkumar.github.io/blog/2012/07/21/mysql-master-slave-replication/</loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://ranjithkumar.github.io/blog/2014/04/18/form-builder-object-on-ajax-callback/
+        </loc>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
+    </url>
+    <url>
         <loc>http://ranjithkumar.github.io/blog/archives/</loc>
-        <lastmod>2014-04-21T12:31:05+05:30</lastmod>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
     </url>
     <url>
         <loc>http://ranjithkumar.github.io/blog/categories/</loc>
@@ -14,6 +62,6 @@
     </url>
     <url>
         <loc>http://ranjithkumar.github.io/</loc>
-        <lastmod>2014-04-21T12:31:05+05:30</lastmod>
+        <lastmod>2014-05-26T17:09:46+05:30</lastmod>
     </url>
 </urlset>

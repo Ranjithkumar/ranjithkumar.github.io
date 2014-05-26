@@ -5,11 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Categories - Ranjith's Blog</title>
+	<title>Form builder object on AJAX callback - Ranjith's Blog</title>
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content=" Rails [ 6 ] Ruby [ 2 ] Database [ 2 ] ">
+	<meta name="description" content="Form Builder Object on AJAX Callback Problem: My application has a select box for users to choose a &ldquo;mapping&rdquo; for the upload. Based on &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
 
 	<link href="/atom.xml" rel="alternate" title="Ranjith's Blog" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://ranjithkumar.github.io/blog/categories/">
+	<link rel="canonical" href="http://ranjithkumar.github.io/blog/2014/04/18/form-builder-object-on-ajax-callback/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -92,22 +92,59 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">Categories</h1>
-    
-    <div class="entry-content"><ul>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Form Builder Object on AJAX Callback</h1>
+	<div class="entry-content" itemprop="articleBody"><p><strong>Problem:</strong></p>
 
-    <li><a href="/blog/categories/Rails/">Rails</a> [ 6 ]</li>
+<p>My application has a select box for users to choose a &ldquo;mapping&rdquo; for the upload. Based on mapping, user should see the default options selected in that form. When user changes the mapping, an AJAX request gets called and renders a js.erb file. The rendered js should render a partial that has fields_for a nested model. My challenge is, How to pass the form build object to the partial on AJAX callback?</p>
 
-    <li><a href="/blog/categories/Ruby/">Ruby</a> [ 2 ]</li>
+<p><em>upload_page.html.erb:</em></p>
 
-    <li><a href="/blog/categories/Database/">Database</a> [ 2 ]</li>
+<pre><code>&lt;%= form_for :upload do |f| %&gt;
+  Some divs....
 
-</ul>
+  &lt;div&gt;
+    &lt;label&gt;Mapping: &lt;/label&gt;
+    &lt;%= f.select :mapping_id, options_from_collection_for_select(@mappings, "id"
+    , "name"), {}, { class: "default_mapping_change" } %&gt;
+  &lt;/div&gt;
 
+  &lt;div id="mapping_option"&gt;
+        &lt;%= render "mapping_option_form", f: f, default_mapping: @mapping %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+</code></pre>
+
+<p>On my ajax callback, I replace &ldquo;mapping_option&rdquo; div with the update object.</p>
+
+<p><strong>Solution:</strong></p>
+
+<p>Create a new form in the js.erb file and passing that one to the partial.</p>
+
+<p><em>default_mapping_change.js.erb:</em></p>
+
+<pre><code>'&lt;%= form_for :upload do |f| %&gt;'
+    $("#mapping_option").html("&lt;%= j(render "mapping_option_form", f: f,
+    default_mapping: @mapping) %&gt;");
+'&lt;% end %&gt;'
+</code></pre>
+
+<p><strong>The single quotes around the form tag are important, or else there will be some javascript escaping issue.</strong></p>
 </div>
+
 </article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
 </div>

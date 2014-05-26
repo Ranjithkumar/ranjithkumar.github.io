@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Database | Ranjith's Blog]]></title>
+  <link href="http://ranjithkumar.github.io/blog/categories/database/atom.xml" rel="self"/>
+  <link href="http://ranjithkumar.github.io/"/>
+  <updated>2014-05-26T17:55:55+05:30</updated>
+  <id>http://ranjithkumar.github.io/</id>
+  <author>
+    <name><![CDATA[Ranjithkumar Ravi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Master-Slave Replication]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2012/07/21/mysql-master-slave-replication/"/>
+    <updated>2012-07-21T15:21:34+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2012/07/21/mysql-master-slave-replication</id>
+    <content type="html"><![CDATA[<p><strong>The advantages of replication:&ndash;</strong>
+1) Offload some queries from one server to other.
+2) Use master for all writes and Use slave for all reads.</p>
+
+<p><strong>Some basic stuff to remember before we go ahead:&ndash;</strong>
+1. Master and slave installations will be on different server instances.
+2. The master should not be in use during the installation process (if master is already present).</p>
+
+<p><strong>1) Setup Master server:&ndash;</strong></p>
+
+<pre><code>   install MySQL Server
+   sudo apt-get install mysql-server
+</code></pre>
+
+<p>after installation, Configure it to make this as Master server.</p>
+
+<p>Edit</p>
+
+<pre><code>   /etc/mysql/my.cnf
+</code></pre>
+
+<p>MySQL should listen to all IP Addresses, so we comment out the following lines:</p>
+
+<pre><code>   #skip-networking
+   #bind-address = 127.0.0.1
+</code></pre>
+
+<p>Set unique server ID</p>
+
+<pre><code>   server-id=1
+</code></pre>
+
+<p>Enable binary logging</p>
+
+<pre><code>   log-bin = /var/log/mysql/mysql-bin.log
+</code></pre>
+
+<p>Restart MySQL by using the command</p>
+
+<pre><code>   sudo service mysql restart
+</code></pre>
+
+<p>Log in to the MySQL shell</p>
+
+<pre><code>   mysql -u root -p
+</code></pre>
+
+<p><strong>Create a replication user:</strong>
+Its recommended to create a separate user for mysql replication to which slaves can authenticate.  Slaves will be connecting to the master using this user’s credentials.</p>
+
+<pre><code>   GRANT REPLICATION SLAVE ON *.* TO 'slaveuser'@'%' IDENTIFIED BY   
+ '&lt;a_real_password&gt;';
+   FLUSH PRIVILEGES;
+   FLUSH TABLES WITH READ LOCK;
+   SHOW MASTER STATUS;
+</code></pre>
+
+<p>After running the above command, you should be able to see binary log position</p>
+
+<pre><code>  +------------------+----------+--------------+------------------+
+   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+   +------------------+----------+--------------+------------------+
+   | mysql-bin.000001 |      107 |              |                  |
+   +------------------+----------+--------------+------------------+
+</code></pre>
+
+<p>Write down the position, this would be needed later.</p>
+
+<p>Note: If you already have a master setup with data, dump the data so that it can be imported to the slave for the data to be in sync.</p>
+
+<p>Leave the shell.</p>
+
+<pre><code>   quit;
+</code></pre>
+
+<p><strong>2) Setup Slave server:&ndash;</strong></p>
+
+<pre><code>   install MySQL Server
+   sudo apt-get install mysql-server
+</code></pre>
+
+<p>after installation, Configure it to make this as slave server.</p>
+
+<p>Edit</p>
+
+<pre><code>   /etc/mysql/my.cnf
+</code></pre>
+
+<p>Set unique server ID</p>
+
+<pre><code>   Server-id=2
+</code></pre>
+
+<p>Restart MySQL by using the command</p>
+
+<pre><code>   sudo service mysql restart
+</code></pre>
+
+<p>Use below command to load the initial data from master</p>
+
+<pre><code>   mysql -u root -p&lt;password&gt; database_name &lt; /path/to/masterdump.sql
+</code></pre>
+
+<p>Log in to the MySQL shell</p>
+
+<pre><code>   mysql -u root -p
+</code></pre>
+
+<p>We need to inform our slave server the details of master server like host name, replication username and password, etc. Other things that slave server need is master log file name and log position, which we have obtained by entering show master status on master server. Now we can connect slave with the master by issuing the following command</p>
+
+<pre><code>   CHANGE MASTER TO MASTER_HOST = '&lt;host_name&gt;', MASTER_USER ='slaveuser', 
+ MASTER_PASSWORD='&lt;a_real_password&gt;', MASTER_LOG_FILE = 'mysql-bin.000001', 
+MASTER_LOG_POS =107;
+</code></pre>
+
+<p>Finally, start the slave</p>
+
+<pre><code>   START SLAVE;
+   SHOW SLAVE STATUS\G; 
+   quit;
+</code></pre>
+
+<p>Now in the master host run the following command to release the lock</p>
+
+<pre><code>   mysql&gt; UNLOCK TABLES;
+</code></pre>
+
+<p>And now, each write to the master gets instantly replicated on the slave as well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to make your application work for both MySQL and PostgreSQL?]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/"/>
+    <updated>2011-07-25T15:45:40+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql</id>
+    <content type="html"><![CDATA[<p>I am using rails 3 and ruby 1.9.2 in my application.
+For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.<br/>
+After hosting, we have faced some issues.</p>
+
+<p><strong>1) Quoting styles:</strong>
+  MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.
+  For ex:
+  One of our tables has a column in it called when, which must be quoted whenever we use it.
+  Rails will of course handle the quoting for you if you do something like</p>
+
+<pre><code>Meeting.find_by_when(Time.now)
+</code></pre>
+
+<p>  But if you are constructing your own SQL conditions then you have to handle the quoting problem.</p>
+
+<p>  In MySQL, it would be like</p>
+
+<pre><code>Meeting.where("`when` &lt; ?", Time.now)
+</code></pre>
+
+<p>  In PostgreSQL, it would be like</p>
+
+<pre><code>Meeting.where("\"when\" &lt; ?", Time.now)
+</code></pre>
+
+<p>  Solution:</p>
+
+<pre><code>Meeting.where("#{Meeting.connection.quote_column_name(when)} &lt; ?", Time.now)
+</code></pre>
+
+<p><strong>2) Boolean type:</strong>
+  MySQL lacks a native BOOLEAN type, so if you create a boolean column in Rails, you will end up with a TINYINT(1) column which has values of 0 and 1 for false and true respectively. PostgreSQL has a native BOOLEAN type, it will accept only false/true unlike MySQL.</p>
+
+<p>  In MySQL, it would be like</p>
+
+<pre><code>Meeting.where("import=1") OR Meeting.where("import=?", true)
+</code></pre>
+
+<p>  In PostgreSQL, it would be like</p>
+
+<pre><code>Meeting.where("import=?", true)
+</code></pre>
+
+<p>  Solution:</p>
+
+<pre><code>so replace 0 and 1 with false and true in your all files then it work in both 
+MySQL and PostgreSQL.
+</code></pre>
+
+<p><strong>3) Other differences:</strong>
+  (i)   Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.
+  (ii)  To select random records from DB, Mysql has a function called &ldquo;rand()&rdquo; and PostgreSQL has a function called &ldquo;random()&rdquo;.
+  (iii) PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.
+  (iv)  In PostgreSQL, attribute name starting with numbers, like &ldquo;360_degree&rdquo; are not allowed.</p>
+
+<p>Good luck!</p>
+]]></content>
+  </entry>
+  
+</feed>

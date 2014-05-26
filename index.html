@@ -9,8 +9,7 @@
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content=" Blog Archives
-">
+	<meta name="description" content="Apr 18th, 2014 Rails Form Builder Object on AJAX Callback Problem: My application has a select box for users to choose a &ldquo;mapping&rdquo; for &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +94,718 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-18T16:23:06+05:30" data-updated="true" itemprop="datePublished">Apr 18<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/04/18/form-builder-object-on-ajax-callback/" itemprop="url">Form Builder Object on AJAX Callback</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong>Problem:</strong></p>
+
+<p>My application has a select box for users to choose a &ldquo;mapping&rdquo; for the upload. Based on mapping, user should see the default options selected in that form. When user changes the mapping, an AJAX request gets called and renders a js.erb file. The rendered js should render a partial that has fields_for a nested model. My challenge is, How to pass the form build object to the partial on AJAX callback?</p>
+
+<p><em>upload_page.html.erb:</em></p>
+
+<pre><code>&lt;%= form_for :upload do |f| %&gt;
+  Some divs....
+
+  &lt;div&gt;
+    &lt;label&gt;Mapping: &lt;/label&gt;
+    &lt;%= f.select :mapping_id, options_from_collection_for_select(@mappings, "id"
+    , "name"), {}, { class: "default_mapping_change" } %&gt;
+  &lt;/div&gt;
+
+  &lt;div id="mapping_option"&gt;
+        &lt;%= render "mapping_option_form", f: f, default_mapping: @mapping %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+</code></pre>
+
+<p>On my ajax callback, I replace &ldquo;mapping_option&rdquo; div with the update object.</p>
+
+<p><strong>Solution:</strong></p>
+
+<p>Create a new form in the js.erb file and passing that one to the partial.</p>
+
+<p><em>default_mapping_change.js.erb:</em></p>
+
+<pre><code>'&lt;%= form_for :upload do |f| %&gt;'
+    $("#mapping_option").html("&lt;%= j(render "mapping_option_form", f: f,
+    default_mapping: @mapping) %&gt;");
+'&lt;% end %&gt;'
+</code></pre>
+
+<p><strong>The single quotes around the form tag are important, or else there will be some javascript escaping issue.</strong></p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-04T11:37:56+05:30" data-updated="true" itemprop="datePublished">Mar 4<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/" itemprop="url">Sidekiq Configuration for SOA / Multiple Environments on Same Server</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
+Here is an example configuration file:</p>
+
+<blockquote>&#8212;
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+staging:
+:concurrency: 10
+production:
+:concurrency: 50
+:queues:
+- default</blockquote>
+
+
+<p>By default, one Sidekiq process will be started on each app server.</p>
+
+<p><strong>Setting the Location of your Redis server</strong></p>
+
+<p>By default, Redis is located at <em>localhost:6379</em>.</p>
+
+<p>Following is my development environment,
+<em>SOA + Ruby(2.0) + Rails(4.0) + Unicorn  + Nginx  + SideKiq + MultiTenant</em></p>
+
+<p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
+
+<blockquote>Sidekiq.configure_server do |config|
+config.redis = { url: &#8216;redis://localhost:6379/0&#8217;, namespace: &#8220;sidekiq_app_name_#{Rails.env}&#8221; }
+end
+
+Sidekiq.configure_client do |config|
+config.redis = { url: &#8216;redis://localhost:6379/0&#8217;, namespace: &#8220;sidekiq_app_name_#{Rails.env}&#8221; }
+end</blockquote>
+
+
+<p>Usage:
+<em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>
+
+<p>Finally, start sidekiq from the root directory of your Rails app.</p>
+
+<blockquote>bundle exec sidekiq -e staging -C config/sidekiq.yml</blockquote>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-21T15:21:34+05:30" data-updated="true" itemprop="datePublished">Jul 21<span>st</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/database/'>Database</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/07/21/mysql-master-slave-replication/" itemprop="url">MySQL Master-Slave Replication</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong>The advantages of replication:&ndash;</strong>
+1) Offload some queries from one server to other.
+2) Use master for all writes and Use slave for all reads.</p>
+
+<p><strong>Some basic stuff to remember before we go ahead:&ndash;</strong>
+1. Master and slave installations will be on different server instances.
+2. The master should not be in use during the installation process (if master is already present).</p>
+
+<p><strong>1) Setup Master server:&ndash;</strong></p>
+
+<pre><code>   install MySQL Server
+   sudo apt-get install mysql-server
+</code></pre>
+
+<p>after installation, Configure it to make this as Master server.</p>
+
+<p>Edit</p>
+
+<pre><code>   /etc/mysql/my.cnf
+</code></pre>
+
+<p>MySQL should listen to all IP Addresses, so we comment out the following lines:</p>
+
+<pre><code>   #skip-networking
+   #bind-address = 127.0.0.1
+</code></pre>
+
+<p>Set unique server ID</p>
+
+<pre><code>   server-id=1
+</code></pre>
+
+<p>Enable binary logging</p>
+
+<pre><code>   log-bin = /var/log/mysql/mysql-bin.log
+</code></pre>
+
+<p>Restart MySQL by using the command</p>
+
+<pre><code>   sudo service mysql restart
+</code></pre>
+
+<p>Log in to the MySQL shell</p>
+
+<pre><code>   mysql -u root -p
+</code></pre>
+
+<p><strong>Create a replication user:</strong>
+Its recommended to create a separate user for mysql replication to which slaves can authenticate.  Slaves will be connecting to the master using this user’s credentials.</p>
+
+<pre><code>   GRANT REPLICATION SLAVE ON *.* TO 'slaveuser'@'%' IDENTIFIED BY   
+ '&lt;a_real_password&gt;';
+   FLUSH PRIVILEGES;
+   FLUSH TABLES WITH READ LOCK;
+   SHOW MASTER STATUS;
+</code></pre>
+
+<p>After running the above command, you should be able to see binary log position</p>
+
+<pre><code>  +------------------+----------+--------------+------------------+
+   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+   +------------------+----------+--------------+------------------+
+   | mysql-bin.000001 |      107 |              |                  |
+   +------------------+----------+--------------+------------------+
+</code></pre>
+
+<p>Write down the position, this would be needed later.</p>
+
+<p>Note: If you already have a master setup with data, dump the data so that it can be imported to the slave for the data to be in sync.</p>
+
+<p>Leave the shell.</p>
+
+<pre><code>   quit;
+</code></pre>
+
+<p><strong>2) Setup Slave server:&ndash;</strong></p>
+
+<pre><code>   install MySQL Server
+   sudo apt-get install mysql-server
+</code></pre>
+
+<p>after installation, Configure it to make this as slave server.</p>
+
+<p>Edit</p>
+
+<pre><code>   /etc/mysql/my.cnf
+</code></pre>
+
+<p>Set unique server ID</p>
+
+<pre><code>   Server-id=2
+</code></pre>
+
+<p>Restart MySQL by using the command</p>
+
+<pre><code>   sudo service mysql restart
+</code></pre>
+
+<p>Use below command to load the initial data from master</p>
+
+<pre><code>   mysql -u root -p&lt;password&gt; database_name &lt; /path/to/masterdump.sql
+</code></pre>
+
+<p>Log in to the MySQL shell</p>
+
+<pre><code>   mysql -u root -p
+</code></pre>
+
+<p>We need to inform our slave server the details of master server like host name, replication username and password, etc. Other things that slave server need is master log file name and log position, which we have obtained by entering show master status on master server. Now we can connect slave with the master by issuing the following command</p>
+
+<pre><code>   CHANGE MASTER TO MASTER_HOST = '&lt;host_name&gt;', MASTER_USER ='slaveuser', 
+ MASTER_PASSWORD='&lt;a_real_password&gt;', MASTER_LOG_FILE = 'mysql-bin.000001', 
+MASTER_LOG_POS =107;
+</code></pre>
+
+<p>Finally, start the slave</p>
+
+<pre><code>   START SLAVE;
+   SHOW SLAVE STATUS\G; 
+   quit;
+</code></pre>
+
+<p>Now in the master host run the following command to release the lock</p>
+
+<pre><code>   mysql&gt; UNLOCK TABLES;
+</code></pre>
+
+<p>And now, each write to the master gets instantly replicated on the slave as well.</p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-25T15:45:40+05:30" data-updated="true" itemprop="datePublished">Jul 25<span>th</span>, 2011</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/database/'>Database</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/" itemprop="url">How to Make Your Application Work for Both MySQL and PostgreSQL?</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>I am using rails 3 and ruby 1.9.2 in my application.
+For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.<br/>
+After hosting, we have faced some issues.</p>
+
+<p><strong>1) Quoting styles:</strong>
+  MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.
+  For ex:
+  One of our tables has a column in it called when, which must be quoted whenever we use it.
+  Rails will of course handle the quoting for you if you do something like</p>
+
+<pre><code>Meeting.find_by_when(Time.now)
+</code></pre>
+
+<p>  But if you are constructing your own SQL conditions then you have to handle the quoting problem.</p>
+
+<p>  In MySQL, it would be like</p>
+
+<pre><code>Meeting.where("`when` &lt; ?", Time.now)
+</code></pre>
+
+<p>  In PostgreSQL, it would be like</p>
+
+<pre><code>Meeting.where("\"when\" &lt; ?", Time.now)
+</code></pre>
+
+<p>  Solution:</p>
+
+<pre><code>Meeting.where("#{Meeting.connection.quote_column_name(when)} &lt; ?", Time.now)
+</code></pre>
+
+<p><strong>2) Boolean type:</strong>
+  MySQL lacks a native BOOLEAN type, so if you create a boolean column in Rails, you will end up with a TINYINT(1) column which has values of 0 and 1 for false and true respectively. PostgreSQL has a native BOOLEAN type, it will accept only false/true unlike MySQL.</p>
+
+<p>  In MySQL, it would be like</p>
+
+<pre><code>Meeting.where("import=1") OR Meeting.where("import=?", true)
+</code></pre>
+
+<p>  In PostgreSQL, it would be like</p>
+
+<pre><code>Meeting.where("import=?", true)
+</code></pre>
+
+<p>  Solution:</p>
+
+<pre><code>so replace 0 and 1 with false and true in your all files then it work in both 
+MySQL and PostgreSQL.
+</code></pre>
+
+<p><strong>3) Other differences:</strong>
+  (i)   Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.
+  (ii)  To select random records from DB, Mysql has a function called &ldquo;rand()&rdquo; and PostgreSQL has a function called &ldquo;random()&rdquo;.
+  (iii) PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.
+  (iv)  In PostgreSQL, attribute name starting with numbers, like &ldquo;360_degree&rdquo; are not allowed.</p>
+
+<p>Good luck!</p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-21T16:01:47+05:30" data-updated="true" itemprop="datePublished">Jul 21<span>st</span>, 2011</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/" itemprop="url">Incompatible Character Encodings Error in Ruby 1.9</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong>Problem:</strong>
+<em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
+
+<p>I am using rails 3 and ruby 1.9.2 in my application.
+While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had</p>
+
+<pre><code>'config.encoding = "utf-8"'.
+</code></pre>
+
+<p>I had no idea what was going wrong&hellip;</p>
+
+<p>After googling a bit, I found that couple of posts mentioned some workarounds for this issue, so I tried:</p>
+
+<pre><code># encoding: utf-8 =&gt; in my class
+and
+"hello ümlaut".force_encoding("UTF-8")
+</code></pre>
+
+<p>That output was</p>
+
+<pre><code>"hello ?mlat" 
+</code></pre>
+
+<p>With this the Error was fixed (no rails error) but the converted string value is incorrect. It was working correctly in some places but not everywhere.</p>
+
+<p>I searched a bit more and then I found that the sequence of bytes that represent an “ü” is different in different encodings and could not be recognized in UTF-8, so such characters were replaced with a “?”.</p>
+
+<p><strong>Solution:</strong>
+  We have to find out that the original encoding of the string and then convert to UTF-8. To achieve this in ruby 1.9.2, we can&rsquo;t do it directly.
+  so, we need to install the gem &lsquo;rchardet19&rsquo;
+  and then add this to the top of your class, require &lsquo;iconv&rsquo;</p>
+
+<p>  now,</p>
+
+<pre><code>  data = CharDet.detect(value)
+  puts "Detected encoding- #{data.encoding}"
+</code></pre>
+
+<p>  and,</p>
+
+<pre><code>  value = (data.confidence &gt; 0.6 ? Iconv.iconv("UTF-8", data.encoding, value)
+           : value)
+</code></pre>
+
+<p>  we are just converting to UTF-8 from the detected encoding.</p>
+
+<p>  This fixes the issue.</p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-15T11:01:44+05:30" data-updated="true" itemprop="datePublished">Feb 15<span>th</span>, 2011</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time/" itemprop="url">Tips for Faster Loading Web sites(Optimizing Page Load Time)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
+Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
+<em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css
+In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
+
+<p>Example put the following around your stylesheets/javascripts:</p>
+
+<pre><code>         -bundle :name =&gt; "default_bundle" do
+           = javascript_include_tag "http://w.sharethis.com/button/buttons.js"
+           = stylesheet_link_tag 'jquery-ui', 'auto_complete/token-input.css'
+           = javascript_include_tag 'jquery-1.4.2.js', 'jquery-ui.js', 'auto_complete/jquery.tokeninput.js', 'auto_complete/setup.js', 'underscore.js', 'date.js', 'cal.js', 'application.js', 'time_picker/jquery.timePicker.js', 'ajax_pagination.js'
+           = stylesheet_link_tag 'compiled/certification.css','compiled/error.css', 'compiled/elements.css', 'compiled/messages.css', 'compiled/calendar.css', 'compiled/common.css', 'time_picker/timePicker.css', :media =&gt; 'screen, projection'
+           = stylesheet_link_tag 'compiled/print.css', :media =&gt; 'print'
+           = javascript_include_tag "markerCluster/jsapi", "markerCluster/map.js", "markerCluster/markerclusterer.js", "jquery-jtemplates"
+</code></pre>
+
+<p><em>b) CSS sprites</em>     => Its used to reducing the number of image requests. Combine your background images into a single image and use the CSS background-image and background-position properties to display the desired image segment.</p>
+
+<p><strong>2) Avoid empty src or href</strong>
+You may expect a browser to do nothing. But most browsers makes a request to server(sending a large amount of unexpected traffic).</p>
+
+<p><strong>3) Compress components with gzip</strong>
+This is used to reduce their file size over the wire by approximately 70%. This can be set up using your Apache(needs Apache 2, mod_deflate, mod_headers and access to server config) or Nginx config.</p>
+
+<p>example for apache(in the server config file):</p>
+
+<pre><code># Compress some text file types
+AddOutputFilterByType DEFLATE text/html text/css text/xml application/x-javascript
+
+# Deactivate compression for buggy browsers
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+# Set header information for proxies
+Header append Vary User-Agent
+</code></pre>
+
+<p><strong>4) Add expires headers for JS &amp; CSS</strong>
+There are two aspects to this rule:
+<em>a) For static components :</em> implement &ldquo;Never expire&rdquo; policy by setting far future Expires header
+<em>b) For dynamic components:</em> use an appropriate Cache-Control header to help the browser with conditional requests</p>
+
+<p>This means that A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. The next request, Browser use a cache to reduce the number and size of HTTP requests, making web pages load faster. A web server uses the Expires header in the HTTP response to tell the client how long a component can be cached. However, it creates an additional problem too. The problem is what happens if you change these files? The browser will be stuck with the old files. The solution is to send a last modified timestamp with your requests (Ex: &ldquo;<img src='/images/rails.png?84392578943' />&rdquo;). Now your browser will know to ask for the file again. The &ldquo;timestamp&rdquo; is the default behavior of rails.</p>
+
+<p><strong>5) Put CSS at top</strong>
+Yahoo discovered that moving stylesheets to the document HEAD makes pages appear to be loading faster. This is because putting stylesheets in the HEAD allows the page to render progressively.</p>
+
+<p><strong>6) Minify JS &amp; CSS</strong>
+Minification is the practice of removing unnecessary characters from code like comments and unneeded white space characters (space, newline, tab and etc). This improves response time performance &amp; load times. You can use JSMin and YUI Compressor for minifying your JS code. Also some plugins are there, please check it here: <a href="https://github.com/sinefunc/sinatra-minify">https://github.com/sinefunc/sinatra-minify</a> and <a href="https://github.com/ericbarnes/ci-minify">https://github.com/ericbarnes/ci-minify</a>.</p>
+
+<p>please check the screenshot. Right now, as you can see, I have made it Yslow grade from &ldquo;F&rdquo; to &ldquo;B&rdquo; very easily. I am sure, we can easily get grade &ldquo;A&rdquo; too&hellip; We need some support from the server side regarding &ldquo;Add expires header&rdquo; and &ldquo;Use Cookie-free Domains for Components&rdquo;. I have requested engineyard(hosting server) for the same. Waiting for the reply from them. By next week, it will turn into grade &ldquo;A&rdquo;.</p>
+
+<p>and also found one good link from rubyquicktips. Benchmark.ms is very nice. its used to track how long some bit of code takes to process. please check it here: <a href="http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil">http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil</a></p>
+
+<p>Before optimization:
+<a href="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png?w=300" alt="" /></a></p>
+
+<p>After optimization:
+<a href="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png?w=300" alt="" /></a></p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-07T17:01:42+05:30" data-updated="true" itemprop="datePublished">Mar 7<span>th</span>, 2010</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2010/03/07/cycle-helper-in-rails/" itemprop="url">&#8220;Cycle&#8221; Helper in Rails</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>If you wanna display the list of records with different(alternate) classes for table rows, then you can use this helper(you no need to check odd-even records). Rails has so many awesome feature like this.</p>
+
+<p>for ex: if you want to apply &lsquo;odd&rsquo; and &lsquo;even&rsquo; class for alternate record</p>
+
+<pre><code> -season_hash.each do |k, v|
+   %tr{:class =&gt; "#{cycle('odd', 'even')}"}
+     %td= v["games"]
+     %td= v["goals"]
+     %td= v["assists"]
+     %td= v["practices"]
+</code></pre>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-07T15:48:07+05:30" data-updated="true" itemprop="datePublished">Mar 7<span>th</span>, 2010</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2010/03/07/ordinalize-in-rails/" itemprop="url">&#8220;Ordinalize&#8221; in Rails</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>How to display a date with suffix like &ldquo;th&rdquo;, &ldquo;st&rdquo;, &ldquo;nd&rdquo;, or &ldquo;rd&rdquo;?</p>
+
+<p>for example, I wanna display like this Mon, 7th April</p>
+
+<p>Rails has inbuilt function &ndash; &ldquo;ordinalize&rdquo;</p>
+
+<p>It turns a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th</p>
+
+<pre><code>date.strftime("%a, #{date.day.ordinalize} %B")
+</code></pre>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-07T14:17:54+05:30" data-updated="true" itemprop="datePublished">Feb 7<span>th</span>, 2010</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2010/02/07/thinking-sphinx-with-multiple-instance/" itemprop="url">Thinking Sphinx With Multiple Instance</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong>Problem:</strong> How to run multiple thinking_sphinx instance in the single app itself?</p>
+
+<p><strong>Solution:</strong> this can usually be done by adding some settings to a file named sphinx.yml in your config directory.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>development:
+    port: 3312
+
+test:
+    port: 3313
+
+production:
+    port: 3315
+</code></pre>
+
+<p><strong>References</strong>: <a href="http://freelancing-god.github.com/ts/en/advanced_config.html">http://freelancing-god.github.com/ts/en/advanced_config.html</a></p>
+
+		
+		
+	</div>
+
+</article>
 
 </div>
 <nav id="pagenavi">
