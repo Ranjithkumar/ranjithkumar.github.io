@@ -5,12 +5,14 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Incompatible character encodings error in ruby 1.9 - Ranjith's Blog</title>
+	<title>about me - Ranjith's Blog</title>
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content="Incompatible Character Encodings Error in Ruby 1.9 Problem:
-Incompatible character encodings error while importing csv files in ruby 1.9 which have &hellip;">
+	<meta name="description" content="I, Ranjithkumar, am a graduate in MCA from
+SASTRA Deemed University, Thanjavur
+currently working as a Software Engineer @ Idexcel Technologies.
+I &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +22,7 @@ Incompatible character encodings error while importing csv files in ruby 1.9 whi
 
 	<link href="/atom.xml" rel="alternate" title="Ranjith's Blog" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://ranjithkumar.github.io/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/">
+	<link rel="canonical" href="http://ranjithkumar.github.io/about/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -108,57 +110,30 @@ Incompatible character encodings error while importing csv files in ruby 1.9 whi
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">Incompatible Character Encodings Error in Ruby 1.9</h1>
-	<div class="entry-content" itemprop="articleBody"><p><strong>Problem:</strong>
-<em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
+				<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">About Me</h1>
+    
+    <div class="entry-content"><p>I, Ranjithkumar, am a graduate in MCA from
+<a href="http://www.sastra.edu">SASTRA Deemed University, Thanjavur</a>
+currently working as a Software Engineer @ <a href="http://www.idexcel.com/">Idexcel Technologies</a>.
+I love open source technologies, frameworks & libraries.
+</p>
 
-<p>I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had</p>
 
-<pre><code>'config.encoding = "utf-8"'.
-</code></pre>
 
-<p>I had no idea what was going wrong&hellip;</p>
 
-<p>After googling a bit, I found that couple of posts mentioned some workarounds for this issue, so I tried:</p>
+<ul>
+  <li>8 years of strong experience developing web applications(SOA, SaaS etc)</li>
+  <li>Published my first rubygem “<a href="https://rubygems.org/gems/spree_payuin">spree_payuin</a>” – PayU.in payment gateway integration for spree. This gem is hosted on rubygems</li>
+  <li>Expertise in development with Ruby on Rails</li>
+  <li>Expertise in caching and website performance</li>
+  <li>Good experience in Sphinx search engine</li>
+  <li>Excellent problem solving with good interpersonal skills</li>
+  <li>A good experience working on Facebook apps with Facebook REST and open graph API</li>
+</ul>
 
-<pre><code># encoding: utf-8 =&gt; in my class
-and
-"hello ümlaut".force_encoding("UTF-8")
-</code></pre>
-
-<p>That output was</p>
-
-<pre><code>"hello ?mlat" 
-</code></pre>
-
-<p>With this the Error was fixed (no rails error) but the converted string value is incorrect. It was working correctly in some places but not everywhere.</p>
-
-<p>I searched a bit more and then I found that the sequence of bytes that represent an “ü” is different in different encodings and could not be recognized in UTF-8, so such characters were replaced with a “?”.</p>
-
-<p><strong>Solution:</strong>
-  We have to find out that the original encoding of the string and then convert to UTF-8. To achieve this in ruby 1.9.2, we can&rsquo;t do it directly.
-  so, we need to install the gem &lsquo;rchardet19&rsquo;
-  and then add this to the top of your class, require &lsquo;iconv&rsquo;</p>
-
-<p>  now,</p>
-
-<pre><code>  data = CharDet.detect(value)
-  puts "Detected encoding- #{data.encoding}"
-</code></pre>
-
-<p>  and,</p>
-
-<pre><code>  value = (data.confidence &gt; 0.6 ? Iconv.iconv("UTF-8", data.encoding, value)
-           : value)
-</code></pre>
-
-<p>  we are just converting to UTF-8 from the detected encoding.</p>
-
-<p>  This fixes the issue.</p>
 </div>
-
 </article>
 
 	<div class="share">
@@ -172,6 +147,7 @@ and
 	</div>
   <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
+
 
 
 </div>
