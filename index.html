@@ -9,7 +9,7 @@
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content="Apr 18th, 2014 Rails Comments Form Builder Object on AJAX Callback Problem: My application has a select box for users to choose a &ldquo;mapping& &hellip;">
+	<meta name="description" content="Apr 18th, 2014 Rails Form Builder Object on AJAX Callback Problem: My application has a select box for users to choose a &ldquo;mapping&rdquo; for &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -134,8 +134,6 @@
 
 </div>
 		
-			<span class="comments"><a href="/blog/2014/04/18/form-builder-object-on-ajax-callback/#disqus_thread">Comments</a></span>
-		
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2014/04/18/form-builder-object-on-ajax-callback/" itemprop="url">Form Builder Object on AJAX Callback</a></h1>
 	<div class="entry-content" itemprop="articleBody">
@@ -143,41 +141,9 @@
 
 <p>My application has a select box for users to choose a &ldquo;mapping&rdquo; for the upload. Based on mapping, user should see the default options selected in that form. When user changes the mapping, an AJAX request gets called and renders a js.erb file. The rendered js should render a partial that has fields_for a nested model. My challenge is, How to pass the form build object to the partial on AJAX callback?</p>
 
-<p><em>upload_page.html.erb:</em></p>
-
-<pre><code>&lt;%= form_for :upload do |f| %&gt;
-  Some divs....
-
-  &lt;div&gt;
-    &lt;label&gt;Mapping: &lt;/label&gt;
-    &lt;%= f.select :mapping_id, options_from_collection_for_select(@mappings, "id"
-    , "name"), {}, { class: "default_mapping_change" } %&gt;
-  &lt;/div&gt;
-
-  &lt;div id="mapping_option"&gt;
-        &lt;%= render "mapping_option_form", f: f, default_mapping: @mapping %&gt;
-  &lt;/div&gt;
-&lt;% end %&gt;
-</code></pre>
-
-<p>On my ajax callback, I replace &ldquo;mapping_option&rdquo; div with the update object.</p>
-
-<p><strong>Solution:</strong></p>
-
-<p>Create a new form in the js.erb file and passing that one to the partial.</p>
-
-<p><em>default_mapping_change.js.erb:</em></p>
-
-<pre><code>'&lt;%= form_for :upload do |f| %&gt;'
-    $("#mapping_option").html("&lt;%= j(render "mapping_option_form", f: f,
-    default_mapping: @mapping) %&gt;");
-'&lt;% end %&gt;'
-</code></pre>
-
-<p><strong>The single quotes around the form tag are important, or else there will be some javascript escaping issue.</strong></p>
 
 		
-		
+		<a href="/blog/2014/04/18/form-builder-object-on-ajax-callback/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>
@@ -206,54 +172,14 @@
 
 </div>
 		
-			<span class="comments"><a href="/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/#disqus_thread">Comments</a></span>
-		
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/" itemprop="url">Sidekiq Configuration for SOA / Multiple Environments on Same Server</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
-Here is an example configuration file:</p>
-
-<pre><code>:concurrency: 5
-:pidfile: tmp/pids/sidekiq.pid
-staging:
- :concurrency: 10
-production:
- :concurrency: 50
-:queues:
- - default
-</code></pre>
-
-<p>By default, one Sidekiq process will be started on each app server.</p>
-
-<p><strong>Setting the Location of your Redis server</strong></p>
-
-<p>By default, Redis is located at <em>localhost:6379</em>.</p>
-
-<p>Following is my development environment,
-<em>SOA + Ruby(2.0) + Rails(4.0) + Unicorn  + Nginx  + SideKiq + MultiTenant</em></p>
-
-<p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
-
-<pre><code>Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end
-
-Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end
-</code></pre>
-
-<p>Usage:
-<em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>
-
-<p>Finally, start sidekiq from the root directory of your Rails app.</p>
-
-<blockquote>bundle exec sidekiq -e staging -C config/sidekiq.yml</blockquote>
+		<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.</p>
 
 
 		
-		
+		<a href="/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>
@@ -282,8 +208,6 @@ end
 
 </div>
 		
-			<span class="comments"><a href="/blog/2012/07/21/mysql-master-slave-replication/#disqus_thread">Comments</a></span>
-		
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2012/07/21/mysql-master-slave-replication/" itemprop="url">MySQL Master-Slave Replication</a></h1>
 	<div class="entry-content" itemprop="articleBody">
@@ -295,129 +219,9 @@ end
 1. Master and slave installations will be on different server instances.
 2. The master should not be in use during the installation process (if master is already present).</p>
 
-<p><strong>1) Setup Master server:&ndash;</strong></p>
-
-<pre><code>   install MySQL Server
-   sudo apt-get install mysql-server
-</code></pre>
-
-<p>after installation, Configure it to make this as Master server.</p>
-
-<p>Edit</p>
-
-<pre><code>   /etc/mysql/my.cnf
-</code></pre>
-
-<p>MySQL should listen to all IP Addresses, so we comment out the following lines:</p>
-
-<pre><code>   #skip-networking
-   #bind-address = 127.0.0.1
-</code></pre>
-
-<p>Set unique server ID</p>
-
-<pre><code>   server-id=1
-</code></pre>
-
-<p>Enable binary logging</p>
-
-<pre><code>   log-bin = /var/log/mysql/mysql-bin.log
-</code></pre>
-
-<p>Restart MySQL by using the command</p>
-
-<pre><code>   sudo service mysql restart
-</code></pre>
-
-<p>Log in to the MySQL shell</p>
-
-<pre><code>   mysql -u root -p
-</code></pre>
-
-<p><strong>Create a replication user:</strong>
-Its recommended to create a separate user for mysql replication to which slaves can authenticate.  Slaves will be connecting to the master using this user’s credentials.</p>
-
-<pre><code>   GRANT REPLICATION SLAVE ON *.* TO 'slaveuser'@'%' IDENTIFIED BY   
- '&lt;a_real_password&gt;';
-   FLUSH PRIVILEGES;
-   FLUSH TABLES WITH READ LOCK;
-   SHOW MASTER STATUS;
-</code></pre>
-
-<p>After running the above command, you should be able to see binary log position</p>
-
-<pre><code>  +------------------+----------+--------------+------------------+
-   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
-   +------------------+----------+--------------+------------------+
-   | mysql-bin.000001 |      107 |              |                  |
-   +------------------+----------+--------------+------------------+
-</code></pre>
-
-<p>Write down the position, this would be needed later.</p>
-
-<p>Note: If you already have a master setup with data, dump the data so that it can be imported to the slave for the data to be in sync.</p>
-
-<p>Leave the shell.</p>
-
-<pre><code>   quit;
-</code></pre>
-
-<p><strong>2) Setup Slave server:&ndash;</strong></p>
-
-<pre><code>   install MySQL Server
-   sudo apt-get install mysql-server
-</code></pre>
-
-<p>after installation, Configure it to make this as slave server.</p>
-
-<p>Edit</p>
-
-<pre><code>   /etc/mysql/my.cnf
-</code></pre>
-
-<p>Set unique server ID</p>
-
-<pre><code>   Server-id=2
-</code></pre>
-
-<p>Restart MySQL by using the command</p>
-
-<pre><code>   sudo service mysql restart
-</code></pre>
-
-<p>Use below command to load the initial data from master</p>
-
-<pre><code>   mysql -u root -p&lt;password&gt; database_name &lt; /path/to/masterdump.sql
-</code></pre>
-
-<p>Log in to the MySQL shell</p>
-
-<pre><code>   mysql -u root -p
-</code></pre>
-
-<p>We need to inform our slave server the details of master server like host name, replication username and password, etc. Other things that slave server need is master log file name and log position, which we have obtained by entering show master status on master server. Now we can connect slave with the master by issuing the following command</p>
-
-<pre><code>   CHANGE MASTER TO MASTER_HOST = '&lt;host_name&gt;', MASTER_USER ='slaveuser', 
- MASTER_PASSWORD='&lt;a_real_password&gt;', MASTER_LOG_FILE = 'mysql-bin.000001', 
-MASTER_LOG_POS =107;
-</code></pre>
-
-<p>Finally, start the slave</p>
-
-<pre><code>   START SLAVE;
-   SHOW SLAVE STATUS\G; 
-   quit;
-</code></pre>
-
-<p>Now in the master host run the following command to release the lock</p>
-
-<pre><code>   mysql&gt; UNLOCK TABLES;
-</code></pre>
-
-<p>And now, each write to the master gets instantly replicated on the slave as well.</p>
 
 		
-		
+		<a href="/blog/2012/07/21/mysql-master-slave-replication/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>
@@ -446,8 +250,6 @@ MASTER_LOG_POS =107;
 
 </div>
 		
-			<span class="comments"><a href="/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/#disqus_thread">Comments</a></span>
-		
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/" itemprop="url">How to Make Your Application Work for Both MySQL and PostgreSQL?</a></h1>
 	<div class="entry-content" itemprop="articleBody">
@@ -455,65 +257,9 @@ MASTER_LOG_POS =107;
 For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.<br/>
 After hosting, we have faced some issues.</p>
 
-<p><strong>1) Quoting styles:</strong>
-  MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.
-  For ex:
-  One of our tables has a column in it called when, which must be quoted whenever we use it.
-  Rails will of course handle the quoting for you if you do something like</p>
-
-<pre><code>Meeting.find_by_when(Time.now)
-</code></pre>
-
-<p>  But if you are constructing your own SQL conditions then you have to handle the quoting problem.</p>
-
-<p>  In MySQL, it would be like</p>
-
-<pre><code>Meeting.where("`when` &lt; ?", Time.now)
-</code></pre>
-
-<p>  In PostgreSQL, it would be like</p>
-
-<pre><code>Meeting.where("\"when\" &lt; ?", Time.now)
-</code></pre>
-
-<p>  Solution:</p>
-
-<pre><code>Meeting.where("#{Meeting.connection.quote_column_name(when)} &lt; ?", Time.now)
-</code></pre>
-
-<p><strong>2) Boolean type:</strong>
-  MySQL lacks a native BOOLEAN type, so if you create a boolean column in Rails, you will end up with a TINYINT(1) column which has values of 0 and 1 for false and true respectively. PostgreSQL has a native BOOLEAN type, it will accept only false/true unlike MySQL.</p>
-
-<p>  In MySQL, it would be like</p>
-
-<pre><code>Meeting.where("import=1") OR Meeting.where("import=?", true)
-</code></pre>
-
-<p>  In PostgreSQL, it would be like</p>
-
-<pre><code>Meeting.where("import=?", true)
-</code></pre>
-
-<p>  Solution:</p>
-
-<pre><code>so replace 0 and 1 with false and true in your all files then it work in both 
-MySQL and PostgreSQL.
-</code></pre>
-
-<p><strong>3) Other differences:</strong></p>
-
-<ol type='a'>
-  <li>Fulltext Search: PostgreSQL is case sensitive. MySQL is not case sensitive.</li>
-  <li>To select random records from DB, Mysql has a function called &#8220;rand()&#8221; and PostgreSQL has a function called &#8220;random()&#8221;.</li>
-  <li>PostgreSQL ALTER TABLE supports ADD COLUMN, RENAME COLUMN and RENAME TABLE only. MySQL has all options in ALTER TABLE.</li>
-  <li>In PostgreSQL, attribute name starting with numbers, like &#8220;360_degree&#8221; are not allowed.</li>
-</ol>
-
-
-<p>Good luck!</p>
 
 		
-		
+		<a href="/blog/2011/07/25/how-to-make-your-application-work-for-both-mysql-and-postgresql/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>
@@ -542,8 +288,6 @@ MySQL and PostgreSQL.
 
 </div>
 		
-			<span class="comments"><a href="/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/#disqus_thread">Comments</a></span>
-		
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/" itemprop="url">Incompatible Character Encodings Error in Ruby 1.9</a></h1>
 	<div class="entry-content" itemprop="articleBody">
@@ -551,52 +295,9 @@ MySQL and PostgreSQL.
 <em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
 
 <p>I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had</p>
-
-<pre><code>'config.encoding = "utf-8"'.
-</code></pre>
-
-<p>I had no idea what was going wrong&hellip;</p>
-
-<p>After googling a bit, I found that couple of posts mentioned some workarounds for this issue, so I tried:</p>
-
-<pre><code># encoding: utf-8 =&gt; in my class
-and
-"hello ümlaut".force_encoding("UTF-8")
-</code></pre>
-
-<p>That output was</p>
-
-<pre><code>"hello ?mlat" 
-</code></pre>
-
-<p>With this the Error was fixed (no rails error) but the converted string value is incorrect. It was working correctly in some places but not everywhere.</p>
-
-<p>I searched a bit more and then I found that the sequence of bytes that represent an “ü” is different in different encodings and could not be recognized in UTF-8, so such characters were replaced with a “?”.</p>
-
-<p><strong>Solution:</strong>
-  We have to find out that the original encoding of the string and then convert to UTF-8. To achieve this in ruby 1.9.2, we can&rsquo;t do it directly.
-  so, we need to install the gem &lsquo;rchardet19&rsquo;
-  and then add this to the top of your class, require &lsquo;iconv&rsquo;</p>
-
-<p>  now,</p>
-
-<pre><code>  data = CharDet.detect(value)
-  puts "Detected encoding- #{data.encoding}"
-</code></pre>
-
-<p>  and,</p>
-
-<pre><code>  value = (data.confidence &gt; 0.6 ? Iconv.iconv("UTF-8", data.encoding, value)
-           : value)
-</code></pre>
-
-<p>  we are just converting to UTF-8 from the detected encoding.</p>
-
-<p>  This fixes the issue.</p>
-
+While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had
 		
-		
+		<a href="/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>

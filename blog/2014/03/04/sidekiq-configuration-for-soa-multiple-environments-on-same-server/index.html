@@ -9,8 +9,8 @@
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content="Sidekiq Configuration for SOA / Multiple Environments on Same Server The Sidekiq configuration file by default located at config/sidekiq.yml. It is &hellip;">
-	
+	<meta name="description" content="Sidekiq configuration for SOA / multiple environments on same server">
+	<meta name="keywords" content="sidekiq configuration,multitenant,SOA,multiple environment,ruby,redis">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -109,8 +109,12 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Sidekiq Configuration for SOA / Multiple Environments on Same Server</h1>
-	<div class="entry-content" itemprop="articleBody"><p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
-Here is an example configuration file:</p>
+	<div class="entry-content" itemprop="articleBody"><p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.</p>
+
+<!--more-->
+
+
+<p>Here is an example configuration file:</p>
 
 <pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Database | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-06-11T16:58:50+05:30</updated>
+  <updated>2014-06-11T19:45:51+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -25,6 +25,9 @@
 <p><strong>Some basic stuff to remember before we go ahead:&ndash;</strong>
 1. Master and slave installations will be on different server instances.
 2. The master should not be in use during the installation process (if master is already present).</p>
+
+<!--more-->
+
 
 <p><strong>1) Setup Master server:&ndash;</strong></p>
 
@@ -157,6 +160,9 @@ MASTER_LOG_POS =107;
     <content type="html"><![CDATA[<p>I am using rails 3 and ruby 1.9.2 in my application.
 For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.<br/>
 After hosting, we have faced some issues.</p>
+
+<!--more-->
+
 
 <p><strong>1) Quoting styles:</strong>
   MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.

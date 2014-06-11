@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-06-11T16:58:50+05:30</updated>
+  <updated>2014-06-11T19:45:51+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -18,8 +18,12 @@
     <link href="http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/"/>
     <updated>2014-03-04T11:37:56+05:30</updated>
     <id>http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server</id>
-    <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
-Here is an example configuration file:</p>
+    <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.</p>
+
+<!--more-->
+
+
+<p>Here is an example configuration file:</p>
 
 <pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
@@ -70,7 +74,7 @@ end
 <em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
 
 <p>I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had</p>
+While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had<!--more--></p>
 
 <pre><code>'config.encoding = "utf-8"'.
 </code></pre>

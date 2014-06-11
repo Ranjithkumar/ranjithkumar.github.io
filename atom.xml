@@ -4,7 +4,7 @@
   <title><![CDATA[Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-06-11T16:58:50+05:30</updated>
+  <updated>2014-06-11T19:45:51+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p><strong>Problem:</strong></p>
 
 <p>My application has a select box for users to choose a &ldquo;mapping&rdquo; for the upload. Based on mapping, user should see the default options selected in that form. When user changes the mapping, an AJAX request gets called and renders a js.erb file. The rendered js should render a partial that has fields_for a nested model. My challenge is, How to pass the form build object to the partial on AJAX callback?</p>
+
+<!--more-->
+
 
 <p><em>upload_page.html.erb:</em></p>
 
@@ -62,8 +65,12 @@
     <link href="http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/"/>
     <updated>2014-03-04T11:37:56+05:30</updated>
     <id>http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server</id>
-    <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
-Here is an example configuration file:</p>
+    <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.</p>
+
+<!--more-->
+
+
+<p>Here is an example configuration file:</p>
 
 <pre><code>:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
@@ -117,6 +124,9 @@ end
 <p><strong>Some basic stuff to remember before we go ahead:&ndash;</strong>
 1. Master and slave installations will be on different server instances.
 2. The master should not be in use during the installation process (if master is already present).</p>
+
+<!--more-->
+
 
 <p><strong>1) Setup Master server:&ndash;</strong></p>
 
@@ -250,6 +260,9 @@ MASTER_LOG_POS =107;
 For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.<br/>
 After hosting, we have faced some issues.</p>
 
+<!--more-->
+
+
 <p><strong>1) Quoting styles:</strong>
   MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.
   For ex:
@@ -318,7 +331,7 @@ MySQL and PostgreSQL.
 <em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
 
 <p>I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had</p>
+While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had<!--more--></p>
 
 <pre><code>'config.encoding = "utf-8"'.
 </code></pre>
@@ -371,6 +384,9 @@ and
     <id>http://ranjithkumar.github.io/blog/2011/02/15/tips-for-faster-loading-web-sitesoptimizing-page-load-time</id>
     <content type="html"><![CDATA[<p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
 Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.</p>
+
+<!--more-->
+
 
 <p><em>a) Combined files</em> => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js &amp; css.
 In our rails app, we used bundle_fu(<a href="https://github.com/timcharper/bundle-fu">https://github.com/timcharper/bundle-fu</a>). Its used to bundle all your assets very easy. It can speed your load time up around 50%.</p>
@@ -445,7 +461,7 @@ Minification is the practice of removing unnecessary characters from code like c
     <id>http://ranjithkumar.github.io/blog/2010/03/07/cycle-helper-in-rails</id>
     <content type="html"><![CDATA[<p>If you wanna display the list of records with different(alternate) classes for table rows, then you can use this helper(you no need to check odd-even records). Rails has so many awesome feature like this.</p>
 
-<p>for ex: if you want to apply &lsquo;odd&rsquo; and &lsquo;even&rsquo; class for alternate record</p>
+<p>for ex: if you want to apply &lsquo;odd&rsquo; and &lsquo;even&rsquo; class for alternate record<!--more--></p>
 
 <pre><code> -season_hash.each do |k, v|
    %tr{:class =&gt; "#{cycle('odd', 'even')}"}
@@ -466,7 +482,7 @@ Minification is the practice of removing unnecessary characters from code like c
 
 <p>for example, I wanna display like this Mon, 7th April</p>
 
-<p>Rails has inbuilt function &ndash; &ldquo;ordinalize&rdquo;</p>
+<p>Rails has inbuilt function &ndash; &ldquo;ordinalize&rdquo;<!--more--></p>
 
 <p>It turns a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th</p>
 
@@ -482,7 +498,7 @@ Minification is the practice of removing unnecessary characters from code like c
     <id>http://ranjithkumar.github.io/blog/2010/02/07/thinking-sphinx-with-multiple-instance</id>
     <content type="html"><![CDATA[<p><strong>Problem:</strong> How to run multiple thinking_sphinx instance in the single app itself?</p>
 
-<p><strong>Solution:</strong> this can usually be done by adding some settings to a file named sphinx.yml in your config directory.</p>
+<p><strong>Solution:</strong> this can usually be done by adding some settings to a file named sphinx.yml in your config directory.<!--more--></p>
 
 <p><strong>Example:</strong></p>
 
