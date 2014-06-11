@@ -6,6 +6,8 @@ layout: post
 slug: thinking-sphinx-with-multiple-instance
 title: Thinking sphinx with multiple instance
 wordpress_id: 1
+keywords: thinking sphinx,multiple instance
+description: How to run multiple thinking sphinx instance in the single app
 categories:
 - Rails
 tags:
@@ -15,7 +17,7 @@ tags:
 
 **Problem:** How to run multiple thinking_sphinx instance in the single app itself?
 
-**Solution:** this can usually be done by adding some settings to a file named sphinx.yml in your config directory.
+**Solution:** this can usually be done by adding some settings to a file named sphinx.yml in your config directory.<!--more-->
 
 **Example:**
 

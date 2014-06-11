@@ -6,6 +6,8 @@ layout: post
 slug: how-to-make-your-application-work-for-both-mysql-and-postgresql
 title: How to make your application work for both MySQL and PostgreSQL?
 wordpress_id: 73
+keywords: mysql,postgresql,application work for both mysql and postgresql
+description: How to make your application work for both MySQL and PostgreSQL
 categories:
 - Database
 tags:
@@ -18,7 +20,7 @@ tags:
 I am using rails 3 and ruby 1.9.2 in my application. 
 For development environment, I am using MySQL and for staging environment, I am using PostgreSQL Database.  
 After hosting, we have faced some issues.
-
+<!--more-->
 **1) Quoting styles:**
   MySQL allows you to quote table and column names with backquotes, whereas PostgreSQL uses double quotes.
   For ex: 

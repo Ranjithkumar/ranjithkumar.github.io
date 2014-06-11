@@ -6,6 +6,8 @@ layout: post
 slug: sidekiq-configuration-for-soa-multiple-environments-on-same-server
 title: Sidekiq configuration for SOA / multiple environments on same server
 wordpress_id: 114
+keywords: sidekiq configuration,multitenant,SOA,multiple environment,ruby,redis
+description: Sidekiq configuration for SOA / multiple environments on same server
 categories:
 - Rails
 - Ruby
@@ -18,7 +20,7 @@ tags:
 ---
 
 The Sidekiq configuration file by default located at _config/sidekiq.yml_. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.
-Here is an example configuration file:
+<!--more-->Here is an example configuration file:
 
 
 

@@ -10,6 +10,8 @@ layout: post
 slug: incompatible-character-encodings-error-in-ruby-1-9
 title: Incompatible character encodings error in ruby 1.9
 wordpress_id: 65
+keywords: encoding,incompatible character,ASCII-8bit,UTF-8, ruby encoding,ruby 1.9
+description: "While importing/parsing the CSV, Incompatible character encodings: ASCII-8bit and UTF-8 in ruby 1.9"
 categories:
 - Ruby
 tags:
@@ -22,7 +24,7 @@ tags:
 _Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages._
 
 I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error "Incompatible character encodings: ASCII-8bit and UTF-8". I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had 
+While importing/parsing the CSV, I get an error "Incompatible character encodings: ASCII-8bit and UTF-8". I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had<!--more-->
     
     'config.encoding = "utf-8"'.
 

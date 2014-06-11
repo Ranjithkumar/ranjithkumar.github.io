@@ -6,6 +6,8 @@ layout: post
 slug: mysql-master-slave-replication
 title: MySQL Master-Slave Replication
 wordpress_id: 91
+keywords: mysql,master slave,master slave replication,replication,master server, slave server
+description: Advantages of replication and How to setup master slave replication in mysql
 categories:
 - Database
 tags:
@@ -22,7 +24,7 @@ tags:
 **Some basic stuff to remember before we go ahead:-**
 1. Master and slave installations will be on different server instances.
 2. The master should not be in use during the installation process (if master is already present).
-
+<!--more-->
 **1) Setup Master server:-**
 
     

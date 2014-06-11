@@ -6,6 +6,8 @@ layout: post
 slug: cycle-helper-in-rails
 title: '"cycle" helper in Rails'
 wordpress_id: 20
+keywords: cycle helper,odd-even records
+description: "if you want to apply 'odd' and 'even' class for alternate record"
 categories:
 - Rails
 tags:
@@ -14,7 +16,7 @@ tags:
 
 If you wanna display the list of records with different(alternate) classes for table rows, then you can use this helper(you no need to check odd-even records). Rails has so many awesome feature like this.
 
-for ex: if you want to apply 'odd' and 'even' class for alternate record
+for ex: if you want to apply 'odd' and 'even' class for alternate record<!--more-->
 
 
     

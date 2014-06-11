@@ -6,6 +6,8 @@ layout: post
 slug: tips-for-faster-loading-web-sitesoptimizing-page-load-time
 title: Tips for faster loading web sites(Optimizing page load time)
 wordpress_id: 37
+keywords: yslow,web site speed,performance optimization,Optimizing page load time,faster loading web sites
+description: How to speed up your site with YSlow
 categories:
 - Rails
 tags:
@@ -15,7 +17,7 @@ tags:
 
 **1) Make fewer HTTP request(Js, CSS & image)**
 Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.
-
+<!--more-->
 _a) Combined files_ => its a way to reduce the number of HTTP requests by combining all files into a single file. ex: js & css.
 In our rails app, we used bundle_fu([https://github.com/timcharper/bundle-fu](https://github.com/timcharper/bundle-fu)). Its used to bundle all your assets very easy. It can speed your load time up around 50%.
 

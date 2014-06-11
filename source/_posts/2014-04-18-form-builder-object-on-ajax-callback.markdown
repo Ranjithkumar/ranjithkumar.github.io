@@ -6,6 +6,8 @@ layout: post
 slug: form-builder-object-on-ajax-callback
 title: Form builder object on AJAX callback
 wordpress_id: 128
+keywords: ajax,nested form,form builder object,ajax callback
+description: How to pass the form build object to the partial on AJAX callback
 categories:
 - Rails
 tags:
@@ -17,6 +19,8 @@ tags:
 **Problem:**
 
 My application has a select box for users to choose a "mapping" for the upload. Based on mapping, user should see the default options selected in that form. When user changes the mapping, an AJAX request gets called and renders a js.erb file. The rendered js should render a partial that has fields_for a nested model. My challenge is, How to pass the form build object to the partial on AJAX callback?
+
+<!--more-->
 
 _upload_page.html.erb:_
 
