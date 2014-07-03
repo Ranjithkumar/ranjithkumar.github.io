@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ActiveResource | Ranjith's Blog]]></title>
+  <link href="http://ranjithkumar.github.io/blog/categories/activeresource/atom.xml" rel="self"/>
+  <link href="http://ranjithkumar.github.io/"/>
+  <updated>2014-07-03T11:58:48+05:30</updated>
+  <id>http://ranjithkumar.github.io/</id>
+  <author>
+    <name><![CDATA[Ranjithkumar Ravi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ActiveResource Custom Method Calls &amp; Responses]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2014/07/03/activeresource-custom-method-calls-and-responses/"/>
+    <updated>2014-07-03T10:52:35+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2014/07/03/activeresource-custom-method-calls-and-responses</id>
+    <content type="html"><![CDATA[<p>Active Resource supports defining our own custom REST methods. A custom method call is one that is not one of the default CRUD actions that you get out of the box with RESTful routing.</p>
+
+<p>To invoke them, Active Resource provides the get, post, put and delete methods where you can specify a custom REST method name to invoke.</p>
+
+<!--more-->
+
+
+<p><strong>Here one thing to note is that, all custom method calls return the remote service response except &lsquo;get&rsquo;. &lsquo;get&rsquo; returns a hash (or array of hashes).</strong></p>
+
+<pre><code># GET all managers(collection custom method), i.e. GET /people/managers.json
+Person.get(:managers)
+#=&gt; [{:name =&gt; "Rans"}, {:name =&gt; "Gokul"}]
+</code></pre>
+
+<p><strong>If you want to get actual objects from a get call, you can use the find method.</strong></p>
+
+<pre><code># GET all managers(collection custom method), i.e. GET /people/managers.json
+Person.find(:all, from: :managers)
+#=&gt; &lt;#Person...&gt;&lt;#Person ...&gt;
+</code></pre>
+
+<p>Options :from &ndash; Sets the path or custom method that resources will be fetched from.</p>
+]]></content>
+  </entry>
+  
+</feed>
