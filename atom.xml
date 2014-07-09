@@ -4,7 +4,7 @@
   <title><![CDATA[Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-07-03T11:58:48+05:30</updated>
+  <updated>2014-07-09T11:05:34+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -139,6 +139,130 @@ end
 
 <blockquote>bundle exec sidekiq -e staging -C config/sidekiq.yml</blockquote>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git Shortcut Commands & Colored Output]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2013/12/09/git-shortcut-commands/"/>
+    <updated>2013-12-09T17:20:15+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2013/12/09/git-shortcut-commands</id>
+    <content type="html"><![CDATA[<p>Helpful git command aliases with colored output</p>
+
+<!--more-->
+
+
+
+
+<div><script src='https://gist.github.com/9527081.js'></script>
+<noscript><pre><code>Add these lines into ~/.gitconfig file.
+
+---------------------------------------------------------------------
+
+[alias]
+        st = status
+        sh = show
+        ft = fetch
+        ci = commit
+        cm = commit -m
+        br = branch
+        rb = branch -d
+        co = checkout
+        nb = checkout -b
+        df = diff
+        pl = pull --rebase 
+        ps = push
+        lg = log -p
+        rv = revert
+        cp = cherry-pick
+        ecm = commit --amend
+    uns = reset HEAD
+        fps = push -u
+        rbc = rebase --continue
+        undo = reset --hard
+
+[color]
+  ui = auto
+[color &quot;branch&quot;]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color &quot;diff&quot;]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color &quot;status&quot;]
+  added = green
+  changed = red
+  untracked = cyan
+
+[format]
+        pretty = &quot;Commit:  %C(yellow)%H%nAuthor:  %C(green)%aN &lt;%aE&gt;%nDate:    (%C(red)%ar%Creset) %ai%nSubject: %s%n%n%b&quot;
+
+---------------------------------------------------------------------
+
+For more information, check here
+1) https://thomashunter.name/blog/git-colored-output-shortcut-commands-autocompletion-and-bash-prompt/
+2) http://gitready.com/intermediate/2009/02/06/helpful-command-aliases.html</code></pre></noscript></div>
+
+
+<p><strong>Sample output(on terminal):</strong></p>
+
+<div>
+<img src="http://ranjithkumar.github.io/images/git-colored-output.png">
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Color My Prompt]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2013/10/17/color-my-prompt/"/>
+    <updated>2013-10-17T10:54:38+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2013/10/17/color-my-prompt</id>
+    <content type="html"><![CDATA[<p>If you wanna make your prompt colorful with Git branch name / Ruby version</p>
+
+<!--more-->
+
+
+
+
+<div><script src='https://gist.github.com/9526665.js'></script>
+<noscript><pre><code>function color_my_prompt {
+    local __user_and_host=&quot;\[\033[01;32m\]\u@\h&quot;
+    local __cur_location=&quot;\[\033[01;34m\]\w&quot;
+    local __git_branch_color=&quot;\[\033[31m\]&quot;
+    local __ruby_color=&quot;\[\033[35m\]&quot;
+    local __ruby_version=&#39;`ruby -v | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`&#39;
+    local __git_branch=&#39;`git branch 2&gt; /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`&#39;
+    local __prompt_tail=&quot;\[\033[01;34m\]$&quot;
+    local __last_color=&quot;\[\033[00m\]&quot;
+    #export PS1=&quot;$__user_and_host $__cur_location $__ruby_color$__ruby_version $__prompt_tail$__last_color &quot;
+    export PS1=&quot;$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color &quot;
+}
+
+color_my_prompt
+
+------------------------------------------------------
+In ~/.bashrc, Add above lines into bottom of the file. 
+
+</code></pre></noscript></div>
+
+
+<p><strong>Sample output(on terminal):</strong></p>
+
+<blockquote><p><div><span style="color:green">ranjith@ranjith </span><span style="color:blue">~/Blog/octopress </span><span style="color:red">(source) </span><span style="color:blue">$</span></div></p></blockquote>
+
+
+<p>Here,</p>
+
+<pre><code>ranjith@ranjith   =&gt; User name and Host name
+~/Blog/octopress  =&gt; Working directory name
+source            =&gt; Git branch name
+</code></pre>
 ]]></content>
   </entry>
   

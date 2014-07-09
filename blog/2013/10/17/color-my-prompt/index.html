@@ -5,12 +5,12 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Categories - Ranjith's Blog</title>
+	<title>Color My Prompt - Ranjith's Blog</title>
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content=" Rails [ 7 ] Ruby [ 2 ] Database [ 2 ] Git [ 2 ] Activeresource [ 1 ] ">
-	
+	<meta name="description" content="If you wanna make your prompt colorful with git branch name">
+	<meta name="keywords" content="Color my prompt,git">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +19,7 @@
 
 	<link href="/atom.xml" rel="alternate" title="Ranjith's Blog" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://ranjithkumar.github.io/blog/categories/">
+	<link rel="canonical" href="http://ranjithkumar.github.io/blog/2013/10/17/color-my-prompt/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -107,26 +107,64 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">Categories</h1>
-    
-    <div class="entry-content"><ul>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Color My Prompt</h1>
+	<div class="entry-content" itemprop="articleBody"><p>If you wanna make your prompt colorful with Git branch name / Ruby version</p>
 
-    <li><a href="/blog/categories/Rails/">Rails</a> [ 7 ]</li>
+<!--more-->
 
-    <li><a href="/blog/categories/Ruby/">Ruby</a> [ 2 ]</li>
 
-    <li><a href="/blog/categories/Database/">Database</a> [ 2 ]</li>
 
-    <li><a href="/blog/categories/Git/">Git</a> [ 2 ]</li>
 
-    <li><a href="/blog/categories/ActiveResource/">Activeresource</a> [ 1 ]</li>
+<div><script src='https://gist.github.com/9526665.js'></script>
+<noscript><pre><code>function color_my_prompt {
+    local __user_and_host=&quot;\[\033[01;32m\]\u@\h&quot;
+    local __cur_location=&quot;\[\033[01;34m\]\w&quot;
+    local __git_branch_color=&quot;\[\033[31m\]&quot;
+    local __ruby_color=&quot;\[\033[35m\]&quot;
+    local __ruby_version=&#39;`ruby -v | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`&#39;
+    local __git_branch=&#39;`git branch 2&gt; /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`&#39;
+    local __prompt_tail=&quot;\[\033[01;34m\]$&quot;
+    local __last_color=&quot;\[\033[00m\]&quot;
+    #export PS1=&quot;$__user_and_host $__cur_location $__ruby_color$__ruby_version $__prompt_tail$__last_color &quot;
+    export PS1=&quot;$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color &quot;
+}
 
-</ul>
+color_my_prompt
 
+------------------------------------------------------
+In ~/.bashrc, Add above lines into bottom of the file. 
+
+</code></pre></noscript></div>
+
+
+<p><strong>Sample output(on terminal):</strong></p>
+
+<blockquote><p><div><span style="color:green">ranjith@ranjith </span><span style="color:blue">~/Blog/octopress </span><span style="color:red">(source) </span><span style="color:blue">$</span></div></p></blockquote>
+
+
+<p>Here,</p>
+
+<pre><code>ranjith@ranjith   =&gt; User name and Host name
+~/Blog/octopress  =&gt; Working directory name
+source            =&gt; Git branch name
+</code></pre>
 </div>
+
 </article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
 
 
 <section id="comment">
@@ -134,7 +172,6 @@
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 </section>
-
 </div>
 			</div>
 			<footer id="footer" class="inner">Copyright &copy; 2014
@@ -152,8 +189,8 @@ Powered by <a href="http://octopress.org">Octopress</a></footer>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://ranjithkumar.github.io/blog/categories/index.html';
-        var disqus_url = 'http://ranjithkumar.github.io/blog/categories/index.html';
+        var disqus_identifier = 'http://ranjithkumar.github.io/blog/2013/10/17/color-my-prompt/';
+        var disqus_url = 'http://ranjithkumar.github.io/blog/2013/10/17/color-my-prompt/';
         var disqus_script = 'embed.js';
       
     (function () {
