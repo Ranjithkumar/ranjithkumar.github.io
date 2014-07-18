@@ -10,7 +10,7 @@
 
 	
 	<meta name="description" content="How to speed up your site with YSlow">
-	<meta name="keywords" content="yslow,web site speed,performance optimization,Optimizing page load time,faster loading web sites">
+	<meta name="keywords" content="yslow, web site speed, performance optimization, Optimizing page load time, faster loading web sites">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -60,18 +60,10 @@
     <li><a href="/about">About</a></li>
     <li><a href="/blog/archives">Archives</a></li>
 </ul>
-
-<section class="aboutme">
-  <p>
-    learning has never been this easy...
-  </p>
-</section>
 </nav>
 <nav id="sub-nav">
 	<div class="social">
 		
-		
-			<a class="facebook" href="http://www.facebook.com/Rans.R" title="Facebook">Facebook</a>
 		
 		
 		
@@ -108,6 +100,21 @@
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+        <div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-15T11:01:44+05:30" data-updated="true" itemprop="datePublished">Feb 15<span>th</span>, 2011</time></div>
+    </div>
 	<h1 class="title" itemprop="name">Tips for Faster Loading Web sites(Optimizing Page Load Time)</h1>
 	<div class="entry-content" itemprop="articleBody"><p><strong>1) Make fewer HTTP request(Js, CSS &amp; image)</strong>
 Most of the end-user response time is spent on the front-end and tied up in downloading all the components in the page like images, stylesheets, scripts, etc. Reducing the number of components in turn reduces the number of HTTP requests.</p>
@@ -174,16 +181,18 @@ Minification is the practice of removing unnecessary characters from code like c
 <p>and also found one good link from rubyquicktips. Benchmark.ms is very nice. its used to track how long some bit of code takes to process. please check it here: <a href="http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil">http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil</a></p>
 
 <p>Before optimization:
-<a href="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png?w=300" alt="" /></a></p>
+<a href="/images/before_optimization.png"><img title="Before optimization" width="400" src="/images/before_optimization.png" /></a></p>
 
 <p>After optimization:
-<a href="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png?w=300" alt="" /></a></p>
+<a href="/images/after_optimization.png"><img title="After optimization" width="400" src="/images/after_optimization.png" /></a></p>
 </div>
 
 </article>
 
 	<div class="share">
 	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 	
 	
 	<a class="addthis_button_tweet"></a>
@@ -230,6 +239,15 @@ Powered by <a href="http://octopress.org">Octopress</a></footer>
 </script>
 
 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

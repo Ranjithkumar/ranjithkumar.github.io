@@ -63,18 +63,10 @@ I &hellip;">
     <li><a href="/about">About</a></li>
     <li><a href="/blog/archives">Archives</a></li>
 </ul>
-
-<section class="aboutme">
-  <p>
-    learning has never been this easy...
-  </p>
-</section>
 </nav>
 <nav id="sub-nav">
 	<div class="social">
 		
-		
-			<a class="facebook" href="http://www.facebook.com/Rans.R" title="Facebook">Facebook</a>
 		
 		
 		
@@ -139,6 +131,8 @@ I love open source technologies, frameworks & libraries.
 	<div class="share">
 	<div class="addthis_toolbox addthis_default_style ">
 	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
 	
 	<a class="addthis_button_tweet"></a>
 	
@@ -185,6 +179,15 @@ Powered by <a href="http://octopress.org">Octopress</a></footer>
 </script>
 
 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

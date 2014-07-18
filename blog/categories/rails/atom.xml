@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-07-09T11:05:34+05:30</updated>
+  <updated>2014-07-18T17:06:46+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -212,10 +212,10 @@ Minification is the practice of removing unnecessary characters from code like c
 <p>and also found one good link from rubyquicktips. Benchmark.ms is very nice. its used to track how long some bit of code takes to process. please check it here: <a href="http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil">http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil</a></p>
 
 <p>Before optimization:
-<a href="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png?w=300" alt="" /></a></p>
+<a href="/images/before_optimization.png"><img title="Before optimization" width="400" src="/images/before_optimization.png" /></a></p>
 
 <p>After optimization:
-<a href="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png"><img src="http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png?w=300" alt="" /></a></p>
+<a href="/images/after_optimization.png"><img title="After optimization" width="400" src="/images/after_optimization.png" /></a></p>
 ]]></content>
   </entry>
   
