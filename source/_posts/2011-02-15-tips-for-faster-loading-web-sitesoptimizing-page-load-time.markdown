@@ -6,7 +6,7 @@ layout: post
 slug: tips-for-faster-loading-web-sitesoptimizing-page-load-time
 title: Tips for faster loading web sites(Optimizing page load time)
 wordpress_id: 37
-keywords: yslow,web site speed,performance optimization,Optimizing page load time,faster loading web sites
+keywords: yslow, web site speed, performance optimization, Optimizing page load time, faster loading web sites
 description: How to speed up your site with YSlow
 categories:
 - Rails
@@ -80,7 +80,7 @@ please check the screenshot. Right now, as you can see, I have made it Yslow gra
 and also found one good link from rubyquicktips. Benchmark.ms is very nice. its used to track how long some bit of code takes to process. please check it here: [http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil](http://rubyquicktips.tumblr.com/post/2838217166/benchmark-ms-rails-you-sneaky-devil)
 
 Before optimization:
-[![](http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png?w=300)](http://ranjithonrails.files.wordpress.com/2011/02/screenshot.png)
+[<img title="Before optimization" width="400" src="{{ root_url }}/images/before_optimization.png" />](/images/before_optimization.png)
 
 After optimization:
-[![](http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png?w=300)](http://ranjithonrails.files.wordpress.com/2011/02/picture-4.png)
+[<img title="After optimization" width="400" src="{{ root_url }}/images/after_optimization.png" />](/images/after_optimization.png)

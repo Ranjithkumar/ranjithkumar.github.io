@@ -6,7 +6,7 @@ layout: post
 slug: form-builder-object-on-ajax-callback
 title: Form builder object on AJAX callback
 wordpress_id: 128
-keywords: ajax,nested form,form builder object,ajax callback
+keywords: form builder object on ajax callback, nested form with ajax
 description: How to pass the form build object to the partial on AJAX callback
 categories:
 - Rails

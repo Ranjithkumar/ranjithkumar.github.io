@@ -6,7 +6,7 @@ layout: post
 slug: mysql-master-slave-replication
 title: MySQL Master-Slave Replication
 wordpress_id: 91
-keywords: mysql,master slave,master slave replication,replication,master server, slave server
+keywords: master slave replication, master slave, replication, master server, slave server, mysql
 description: Advantages of replication and How to setup master slave replication in mysql
 categories:
 - Database

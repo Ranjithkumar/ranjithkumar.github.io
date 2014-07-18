@@ -7,7 +7,7 @@ title: Ranjith's Blog
 subtitle: learning has never been this easy...
 author: Ranjithkumar Ravi
 simple_search: https://www.google.com/search
-description: learning has never been this easy...
+description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -98,8 +98,8 @@ disqus_show_comment_count: false
 google_analytics_tracking_id: UA-51375110-1
 
 # Facebook Like
-facebook_user: Rans.R
-facebook_like: false
+facebook_user:
+facebook_like: true
 
 stackoverflow_user: ranjithkumar-ravi
 stackoverflow_user_id: 1379514

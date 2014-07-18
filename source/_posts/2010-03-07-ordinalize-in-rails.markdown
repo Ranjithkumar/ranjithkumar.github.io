@@ -6,7 +6,7 @@ layout: post
 slug: ordinalize-in-rails
 title: '"ordinalize" in Rails'
 wordpress_id: 17
-keywords: ordinalize,display a date with suffix
+keywords: ordinalize, display a date with suffix
 description: "How to display a date with suffix like 'th', 'st', 'nd', or 'rd'"
 categories:
 - Rails

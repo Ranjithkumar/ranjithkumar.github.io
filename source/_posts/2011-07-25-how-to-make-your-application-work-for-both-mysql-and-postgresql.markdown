@@ -6,7 +6,7 @@ layout: post
 slug: how-to-make-your-application-work-for-both-mysql-and-postgresql
 title: How to make your application work for both MySQL and PostgreSQL?
 wordpress_id: 73
-keywords: mysql,postgresql,application work for both mysql and postgresql
+keywords: make application work for both mysql and postgresql
 description: How to make your application work for both MySQL and PostgreSQL
 categories:
 - Database

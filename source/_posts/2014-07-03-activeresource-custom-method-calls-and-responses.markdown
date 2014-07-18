@@ -6,7 +6,7 @@ date: 2014-07-03 10:52:35 +0530
 comments: true
 categories: [Rails, ActiveResource]
 tags: [activeresource, rubyonrails, REST, ruby]
-keywords: activeresource,rubyonrails,custom method call,rest
+keywords: active resource custom method calls, custom method call, rubyonrails, rest
 description: ActiveResource Custom Method Calls and Responses
 
 ---

@@ -5,7 +5,7 @@ title: "Color My Prompt"
 date: 2013-10-17 10:54:38 +0530
 comments: true
 categories: [Git]
-keywords: Color my prompt,git
+keywords: Color my prompt, git
 description: If you wanna make your prompt colorful with git branch name
 
 ---

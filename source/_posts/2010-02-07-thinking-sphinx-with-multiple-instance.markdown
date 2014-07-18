@@ -6,7 +6,7 @@ layout: post
 slug: thinking-sphinx-with-multiple-instance
 title: Thinking sphinx with multiple instance
 wordpress_id: 1
-keywords: thinking sphinx,multiple instance
+keywords: thinking sphinx with multiple instance
 description: How to run multiple thinking sphinx instance in the single app
 categories:
 - Rails

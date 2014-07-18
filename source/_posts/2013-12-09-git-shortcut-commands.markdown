@@ -5,7 +5,7 @@ title: "Git Shortcut Commands & Colored Output"
 date: 2013-12-09 17:20:15 +0530
 comments: true
 categories: [Git]
-keywords: git shortcut commands,git colored output
+keywords: git shortcut commands, git colored output
 description: Git Shortcut Commands & Colored Output
 
 ---

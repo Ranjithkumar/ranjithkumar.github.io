@@ -6,7 +6,7 @@ layout: post
 slug: cycle-helper-in-rails
 title: '"cycle" helper in Rails'
 wordpress_id: 20
-keywords: cycle helper,odd-even records
+keywords: cycle helper, odd-even records
 description: "if you want to apply 'odd' and 'even' class for alternate record"
 categories:
 - Rails

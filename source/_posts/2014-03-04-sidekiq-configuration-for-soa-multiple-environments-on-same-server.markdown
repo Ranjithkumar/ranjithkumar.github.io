@@ -6,7 +6,7 @@ layout: post
 slug: sidekiq-configuration-for-soa-multiple-environments-on-same-server
 title: Sidekiq configuration for SOA / multiple environments on same server
 wordpress_id: 114
-keywords: sidekiq configuration,multitenant,SOA,multiple environment,ruby,redis
+keywords: sidekiq configuration for SOA, multitenant, sidekiq configuration for multiple environment, SOA, redis
 description: Sidekiq configuration for SOA / multiple environments on same server
 categories:
 - Rails

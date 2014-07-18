@@ -10,7 +10,7 @@ layout: post
 slug: incompatible-character-encodings-error-in-ruby-1-9
 title: Incompatible character encodings error in ruby 1.9
 wordpress_id: 65
-keywords: encoding,incompatible character,ASCII-8bit,UTF-8, ruby encoding,ruby 1.9
+keywords: incompatible character encoding, ruby encoding, ASCII-8bit, ruby 1.9
 description: "While importing/parsing the CSV, Incompatible character encodings: ASCII-8bit and UTF-8 in ruby 1.9"
 categories:
 - Ruby
