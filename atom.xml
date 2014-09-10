@@ -4,7 +4,7 @@
   <title><![CDATA[Ranjith's Blog]]></title>
   <link href="http://ranjithkumar.github.io/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
-  <updated>2014-07-18T17:06:46+05:30</updated>
+  <updated>2014-09-10T18:58:36+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
   <author>
     <name><![CDATA[Ranjithkumar Ravi]]></name>
@@ -12,6 +12,195 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails#send_file + Nginx X-Accel-Redirect]]></title>
+    <link href="http://ranjithkumar.github.io/blog/2014/09/10/rails-number-send-file-plus-nginx-x-accel-redirect/"/>
+    <updated>2014-09-10T16:13:33+05:30</updated>
+    <id>http://ranjithkumar.github.io/blog/2014/09/10/rails-number-send-file-plus-nginx-x-accel-redirect</id>
+    <content type="html"><![CDATA[<p>Sometimes you may need to serve some static files (CSV, PDF, XLS etc) to your users, but only after they have logged in. Obviously you can’t just keep the static file in your public folder as anyone could just use the URL to download files.</p>
+
+<p>One possible solution for protected downloads is to just use the #send_file method provided by Rack to send a non-public file to the user, but serving static files with your app server (Unicorn, Mongrel, Thin etc) is a bad idea as it’s really inefficient. The best approach is to allow the app server to handle the authentication/authorization and then hand the actual downloading to your web server (Nginx, Apache, Lighttpd etc).</p>
+
+<!--more-->
+
+
+<p>In Lighttpd server it can be done by returning X-Sendfile header from your script. Nginx have its own implementation of such idea using X-Accel-Redirect header.</p>
+
+<p><strong>The need for X-Accel-Redirect:</strong></p>
+
+<ul>
+<li>To deliver large files.</li>
+<li>For those files to not be available to the public</li>
+<li>Would be able to free some resources on server while nginx will handle all slow requests to dynamic content</li>
+</ul>
+
+
+<p>In this article I will assume that the site is located in <em>/home/kranjith/sites/projects/blog</em> directory and there are some static files (like CSV, PDF, XLS etc) located in <em>/home/kranjith/sites/projects/blog/uploads</em> directory.</p>
+
+<p>First of all, lets take a look at our nginx configuration:</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># Nginx X-Accel-Redirect configuration for Rails and Unicorn </span>
+<span style="color: white">upstream unicorn_blog_server {</span>
+    <span style="color: white">server unix:/home/kranjith/sites/projects/blog/tmp/sockets/unicorn.sock</span>
+    <span style="color: white">fail_timeout=0;</span>
+<span style="color: white">}</span>
+
+<span style="color: white">server {</span>
+    <span style="color: white">listen       80;</span>
+    <span style="color: white">server_name  example.org;</span>
+ 
+    <span style="color: white">root /home/kranjith/sites/projects/blog/public;</span>
+    
+    <span style="color: white">location /downloads {</span>
+      <span style="color: white">internal;</span>
+      <span style="color: white">alias /home/kranjith/sites/projects/blog/uploads;</span>
+    <span style="color: white">}</span>
+    
+    <span style="color: white">location / {</span>
+       <span style="color: white">try_files $uri @blog;</span>
+    <span style="color: white">}</span>
+
+    <span style="color: white">location @blog {</span>
+      <span style="color: white">proxy_redirect    off;</span>
+      
+      <span style="color: white">proxy_set_header  Host              $http_host;</span>
+      <span style="color: white">proxy_set_header  X-Real-IP         $remote_addr;</span>
+      <span style="color: white">proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</span>
+ 
+      <span style="color: white">proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;</span>
+      <span style="color: white">proxy_set_header  X-Accel-Mapping   /home/kranjith/sites/projects/blog/uploads/=/downloads/;</span>
+      
+      <span style="color: white">proxy_pass http://unicorn_blog_server;</span>
+    <span style="color: white">}</span>
+<span style="color: white">}</span>
+</pre></div>
+
+
+<p><strong>The internal keyword for the /downloads location prevents the uploads folder from being publicly accessible</strong>.</p>
+
+<p>Next you need to ensure that Rails knows what server you are using</p>
+
+<p>In <em>config/environments/production.rb</em> file.</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># Specifies the header that your server uses for sending files.</span>
+<span style="color: #f8f8f2">config</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">action_dispatch</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">x_sendfile_header</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;X-Accel-Redirect&#39;</span> <span style="color: #75715e"># for nginx</span>
+</pre>
+</div>
+
+
+<p>In <em>DownloadsController</em>, just do whatever authorization you need to, then use #send_file to serve the file to the user:</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #66d9ef">class</span> <span style="color: #a6e22e">DownloadsController</span> <span style="color: #f92672">&lt;</span> <span style="color: #66d9ef">ApplicationController</span>
+  <span style="color: #f8f8f2">load_and_authorize_resource</span>
+
+  <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">show</span>
+    <span style="color: #f8f8f2">send_file(</span> <span style="color: #66d9ef">Rails</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">root</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">to_s</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">@uploaded_file</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">file</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">url,</span> <span style="color: #e6db74">type</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">@uploaded_file</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">content_type,</span> <span style="color: #e6db74">filename</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">@uploaded_file</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">filename,</span> <span style="color: #e6db74">dispostion</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;inline&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">status</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">stream</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">x_sendfile:</span> <span style="color: #66d9ef">true</span> <span style="color: #f8f8f2">)</span>   
+  <span style="color: #66d9ef">end</span>   
+<span style="color: #66d9ef">end</span>
+</pre></div>
+
+
+<p>I am using CarrierWave to upload files from Rails applications. In <em>config/initializers/carrierwave.rb</em></p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #66d9ef">CarrierWave</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">configure</span> <span style="color: #66d9ef">do</span> <span style="color: #f92672">|</span><span style="color: #f8f8f2">config</span><span style="color: #f92672">|</span>
+  <span style="color: #f8f8f2">config</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">storage</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">:file</span>
+  <span style="color: #f8f8f2">config</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">root</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">Rails</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">root</span>
+  <span style="color: #f8f8f2">config</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">store_dir</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;uploads&quot;</span>
+<span style="color: #66d9ef">end</span>
+</pre></div>
+
+
+<p>And that’s it! <strong>With described approach we are able to create very flexible and extremely performance systems for file distribution!</strong></p>
+
+<p>Now I’m going to run through a specific example of downloading a file.</p>
+
+<p>1.Browser makes a request for a file</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># HTTP Headers</span>
+<span style="color: white">GET /downloads/SecretSquirrel.zip</span>
+</pre></div>
+
+
+<p>2.Nginx receives this request. It adds on a header with configuration data that will be required by rails.</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># Example HTTP Headers with additional header added by nginx</span>
+<span style="color: white">GET /downloads/SecretSquirrel.zip</span>
+<span style="color: white">X-Accel-Mapping</span><span style="color: #f8f8f2">:</span>   <span style="color: white">/home/kranjith/sites/projects/blog/uploads/=/downloads/</span>
+</pre></div>
+
+
+<p>3.Nginx passes the request onto Rails and it invokes the relevant controller.</p>
+
+<p>4.The controller makes its authorization checks and calls send_file. Use the absolute path to the file.</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># controller code (e.g. app/controllers/downloads_controller.rb)</span>
+<span style="color: white">send_file(&#39;/home/kranjith/sites/projects/blog/uploads/SecretSquirrel.zip&#39;)</span>
+</pre></div>
+
+
+<p>5.Rails (Rack to be precise) then decides what to with the file. Rails knows what server we are using (from <em>config/environments/production.rb</em>). Instead of using the file as the body of the request, it will add a header to the response. It uses the X-Accel-Mapping that nginx added earlier to change the file path.</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># HTTP Response</span>
+<span style="color: white">HTTP/1.1 200 OK</span>
+<span style="color: white">X-Accel-Redirect</span><span style="color: #f8f8f2">:</span> <span style="color: white">/downloads/SecretSquirrel.zip</span>
+<span style="color: white">Content-Type</span><span style="color: #f8f8f2">:</span> <span style="color: white">application/octet-stream</span>
+<span style="color: white">Content-length</span><span style="color: #f8f8f2">:</span> <span style="color: white">...</span>
+<span style="color: white">Content-Disposition</span><span style="color: #f8f8f2">:</span> <span style="color: white">attachment; filename=&quot;SecretSquirrel.zip&quot;</span>
+<span style="color: white">&lt;empty body&gt;</span>
+</pre></div>
+
+
+<p>6.Nginx receives this header from rails and interprets it. It finds the location directive and reverses the changes to the path that rails made in step 5.</p>
+
+<!-- HTML generated using hilite.me -->
+
+
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;font-size: 0.8em;">
+<pre style="margin: 0; line-height: 125%; background: none; border: 0;"><span style="color: #75715e"># HTTP Response</span>
+<span style="color: white">HTTP/1.1 200 OK</span>
+<span style="color: white">Content-Type</span><span style="color: #f8f8f2">:</span> <span style="color: white">application/octet-stream</span>
+<span style="color: white">Content-Length</span><span style="color: #f8f8f2">:</span> <span style="color: white">...</span>
+<span style="color: white">Content-Disposition</span><span style="color: #f8f8f2">:</span> <span style="color: white">attachment; filename=&quot;SecretSquirrel.zip&quot;</span>
+<span style="color: white">&lt;contents of /home/kranjith/sites/projects/blog/uploads/SecretSquirrel.zip&gt;</span>
+</pre></div>
+
+
+<p>7.Browser receives the file as if it was a normal download.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ActiveResource Custom Method Calls &amp; Responses]]></title>

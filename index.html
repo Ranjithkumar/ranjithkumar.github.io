@@ -9,7 +9,7 @@
 	<meta name="author" content="Ranjithkumar Ravi">
 
 	
-	<meta name="description" content="Jul 3rd, 2014 ActiveResource, Rails ActiveResource Custom Method Calls &amp; Responses Active Resource supports defining our own custom REST methods &hellip;">
+	<meta name="description" content="Sep 10th, 2014 Nginx, Rails Rails#send_file + Nginx X-Accel-Redirect Sometimes you may need to serve some static files (CSV, PDF, XLS etc) to your &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,44 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-10T16:13:33+05:30" data-updated="true" itemprop="datePublished">Sep 10<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/nginx/'>Nginx</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/10/rails-number-send-file-plus-nginx-x-accel-redirect/" itemprop="url">Rails#send_file + Nginx X-Accel-Redirect</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>Sometimes you may need to serve some static files (CSV, PDF, XLS etc) to your users, but only after they have logged in. Obviously you can’t just keep the static file in your public folder as anyone could just use the URL to download files.</p>
+
+<p>One possible solution for protected downloads is to just use the #send_file method provided by Rack to send a non-public file to the user, but serving static files with your app server (Unicorn, Mongrel, Thin etc) is a bad idea as it’s really inefficient. The best approach is to allow the app server to handle the authentication/authorization and then hand the actual downloading to your web server (Nginx, Apache, Lighttpd etc).</p>
+
+
+		
+		<a href="/blog/2014/09/10/rails-number-send-file-plus-nginx-x-accel-redirect/" class="more-link">Read on &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -246,42 +284,6 @@
 
 		
 		<a href="/blog/2013/12/09/git-shortcut-commands/" class="more-link">Read on &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-17T10:54:38+05:30" data-updated="true" itemprop="datePublished">Oct 17<span>th</span>, 2013</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/git/'>Git</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2013/10/17/color-my-prompt/" itemprop="url">Color My Prompt</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>If you wanna make your prompt colorful with Git branch name / Ruby version</p>
-
-
-		
-		<a href="/blog/2013/10/17/color-my-prompt/" class="more-link">Read on &rarr;</a>
 	</div>
 
 </article>
