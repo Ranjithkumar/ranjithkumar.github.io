@@ -9,7 +9,7 @@ wordpress_id: 91
 keywords: master slave replication, master slave, replication, master server, slave server, mysql
 description: Advantages of replication and How to setup master slave replication in mysql
 categories:
-- Database
+- database
 tags:
 - database
 - MySQL

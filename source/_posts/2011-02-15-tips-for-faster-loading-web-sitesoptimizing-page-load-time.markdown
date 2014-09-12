@@ -9,7 +9,7 @@ wordpress_id: 37
 keywords: yslow, web site speed, performance optimization, Optimizing page load time, faster loading web sites
 description: How to speed up your site with YSlow
 categories:
-- Rails
+- rails
 tags:
 - optimization
 - rails

@@ -9,7 +9,7 @@ wordpress_id: 73
 keywords: make application work for both mysql and postgresql
 description: How to make your application work for both MySQL and PostgreSQL
 categories:
-- Database
+- database
 tags:
 - database
 - MySQL

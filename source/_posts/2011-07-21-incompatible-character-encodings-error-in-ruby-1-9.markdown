@@ -13,7 +13,7 @@ wordpress_id: 65
 keywords: incompatible character encoding, ruby encoding, ASCII-8bit, ruby 1.9
 description: "While importing/parsing the CSV, Incompatible character encodings: ASCII-8bit and UTF-8 in ruby 1.9"
 categories:
-- Ruby
+- ruby
 tags:
 - encoding
 - ruby

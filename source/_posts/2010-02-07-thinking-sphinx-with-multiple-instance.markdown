@@ -9,7 +9,7 @@ wordpress_id: 1
 keywords: thinking sphinx with multiple instance
 description: How to run multiple thinking sphinx instance in the single app
 categories:
-- Rails
+- rails
 tags:
 - rails
 - thinking_sphinx

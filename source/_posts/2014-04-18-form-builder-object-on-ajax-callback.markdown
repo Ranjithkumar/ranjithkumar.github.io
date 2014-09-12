@@ -9,7 +9,7 @@ wordpress_id: 128
 keywords: form builder object on ajax callback, nested form with ajax
 description: How to pass the form build object to the partial on AJAX callback
 categories:
-- Rails
+- rails
 tags:
 - ajax
 - nested_form

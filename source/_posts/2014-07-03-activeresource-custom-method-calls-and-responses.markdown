@@ -4,7 +4,7 @@ layout: post
 title: "ActiveResource Custom Method Calls &amp; Responses"
 date: 2014-07-03 10:52:35 +0530
 comments: true
-categories: [Rails, ActiveResource]
+categories: [rails, active-resource]
 tags: [activeresource, rubyonrails, REST, ruby]
 keywords: active resource custom method calls, custom method call, rubyonrails, rest
 description: ActiveResource Custom Method Calls and Responses

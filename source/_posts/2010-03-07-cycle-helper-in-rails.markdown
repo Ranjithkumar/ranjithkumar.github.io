@@ -9,7 +9,7 @@ wordpress_id: 20
 keywords: cycle helper, odd-even records
 description: "if you want to apply 'odd' and 'even' class for alternate record"
 categories:
-- Rails
+- rails
 tags:
 - rails
 ---

@@ -4,7 +4,7 @@ layout: post
 title: "Rails#send_file + Nginx X-Accel-Redirect"
 date: 2014-09-10 16:13:33 +0530
 comments: true
-categories: [Rails, Nginx]
+categories: [rails, nginx]
 tags: [send_file, X-Accel-Redirect] 
 keywords: Rails#send_file, Nginx X-Accel-Redirect, X-Accel-Redirect, send_file, Best performance systems for file distribution
 description: Rails#send_file + Nginx X-Accel-Redirect = Best performance systems for file distribution
