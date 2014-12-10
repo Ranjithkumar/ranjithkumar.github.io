@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: ruby | Ranjith's Blog]]></title>
-  <link href="http://ranjithkumar.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <title><![CDATA[Category: metaprogramming | Ranjith's Blog]]></title>
+  <link href="http://ranjithkumar.github.io/blog/categories/metaprogramming/atom.xml" rel="self"/>
   <link href="http://ranjithkumar.github.io/"/>
   <updated>2014-12-10T12:27:29+05:30</updated>
   <id>http://ranjithkumar.github.io/</id>
@@ -458,113 +458,6 @@ Class Extension Mixin allows you to both <code>include</code> and <code>extend</
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sidekiq configuration for SOA / multiple environments on same server]]></title>
-    <link href="http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server/"/>
-    <updated>2014-03-04T11:37:56+05:30</updated>
-    <id>http://ranjithkumar.github.io/blog/2014/03/04/sidekiq-configuration-for-soa-multiple-environments-on-same-server</id>
-    <content type="html"><![CDATA[<p>The Sidekiq configuration file by default located at <em>config/sidekiq.yml</em>. It is only necessary to create the file if you need to set advanced options, such as concurrency pool size, named queues, PID file location, etc.</p>
-
-<!--more-->
-
-
-<p>Here is an example configuration file:</p>
-
-<pre><code>:concurrency: 5
-:pidfile: tmp/pids/sidekiq.pid
-staging:
- :concurrency: 10
-production:
- :concurrency: 50
-:queues:
- - default
-</code></pre>
-
-<p>By default, one Sidekiq process will be started on each app server.</p>
-
-<p><strong>Setting the Location of your Redis server</strong></p>
-
-<p>By default, Redis is located at <em>localhost:6379</em>.</p>
-
-<p>Following is my development environment,
-<em>SOA + Ruby(2.0) + Rails(4.0) + Unicorn  + Nginx  + SideKiq + MultiTenant</em></p>
-
-<p>In your <em>config/initializers/sidekiq.rb</em> file,</p>
-
-<pre><code>Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end
-
-Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "sidekiq_app_name_#{Rails.env}" }
-end
-</code></pre>
-
-<p>Usage:
-<em>The :namespace parameter is recommended if Sidekiq is sharing access to a Redis database.</em></p>
-
-<p>Finally, start sidekiq from the root directory of your Rails app.</p>
-
-<blockquote>bundle exec sidekiq -e staging -C config/sidekiq.yml</blockquote>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Incompatible character encodings error in ruby 1.9]]></title>
-    <link href="http://ranjithkumar.github.io/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9/"/>
-    <updated>2011-07-21T16:01:47+05:30</updated>
-    <id>http://ranjithkumar.github.io/blog/2011/07/21/incompatible-character-encodings-error-in-ruby-1-9</id>
-    <content type="html"><![CDATA[<p><strong>Problem:</strong>
-<em>Incompatible character encodings error while importing csv files in ruby 1.9 which have data in multiple languages.</em></p>
-
-<p>I am using rails 3 and ruby 1.9.2 in my application.
-While importing/parsing the CSV, I get an error &ldquo;Incompatible character encodings: ASCII-8bit and UTF-8&rdquo;. I quickly checked my database encoding, it was UTF-8 only and also in application.rb, I had<!--more--></p>
-
-<pre><code>'config.encoding = "utf-8"'.
-</code></pre>
-
-<p>I had no idea what was going wrong&hellip;</p>
-
-<p>After googling a bit, I found that couple of posts mentioned some workarounds for this issue, so I tried:</p>
-
-<pre><code># encoding: utf-8 =&gt; in my class
-and
-"hello ümlaut".force_encoding("UTF-8")
-</code></pre>
-
-<p>That output was</p>
-
-<pre><code>"hello ?mlat" 
-</code></pre>
-
-<p>With this the Error was fixed (no rails error) but the converted string value is incorrect. It was working correctly in some places but not everywhere.</p>
-
-<p>I searched a bit more and then I found that the sequence of bytes that represent an “ü” is different in different encodings and could not be recognized in UTF-8, so such characters were replaced with a “?”.</p>
-
-<p><strong>Solution:</strong>
-  We have to find out that the original encoding of the string and then convert to UTF-8. To achieve this in ruby 1.9.2, we can&rsquo;t do it directly.
-  so, we need to install the gem &lsquo;rchardet19&rsquo;
-  and then add this to the top of your class, require &lsquo;iconv&rsquo;</p>
-
-<p>  now,</p>
-
-<pre><code>  data = CharDet.detect(value)
-  puts "Detected encoding- #{data.encoding}"
-</code></pre>
-
-<p>  and,</p>
-
-<pre><code>  value = (data.confidence &gt; 0.6 ? Iconv.iconv("UTF-8", data.encoding, value)
-           : value)
-</code></pre>
-
-<p>  we are just converting to UTF-8 from the detected encoding.</p>
-
-<p>  This fixes the issue.</p>
 ]]></content>
   </entry>
   
